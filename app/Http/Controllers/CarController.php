@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CarController extends Controller
 {
     public function list(){
-        return 'all cars';
+        return view('car.index');
     }
 
     public function getCarInfo(Request $request){
