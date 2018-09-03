@@ -26,6 +26,7 @@ class CreateCarsTable extends Migration
             $table->integer('mileage')->default(0);
             $table->integer('ruc')->default(0);
             $table->integer('service')->nullable();
+            $table->softDeletes();
 
         });
     }
