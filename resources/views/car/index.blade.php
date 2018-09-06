@@ -1,12 +1,5 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboard2')
 
 @section('page')
-<div class="card  text-white">
-    <div class="card-header bg-info">
-        <h3>Car List</h3>
-    </div>
-    <div class="card-body">
 
-    </div>
-</div>
 @endsection

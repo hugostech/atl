@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::prefix('car')->middleware(['web'])->group(function (){
     Route::get('list','CarController@list')->name('car_list');
 
