@@ -18,6 +18,10 @@ class CarController extends Controller
 
     }
 
+    public function newCar(){
+        return view('car.new');
+    }
+
     public function saveCar(Request $request){
         //to do
     }

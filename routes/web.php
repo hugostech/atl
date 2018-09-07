@@ -22,5 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('car')->middleware(['web'])->group(function (){
     Route::get('list','CarController@list')->name('car_list');
+    Route::get('new','CarController@newCar')->name('car_new');
+    Route::post('create','CarController@saveCar')->name('car_create');
 
 });

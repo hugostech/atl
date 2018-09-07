@@ -138,7 +138,7 @@
                                 <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-box"></i> Car Management</a>
                                 <div class="dropdown-menu dropdown-menu-arrow">
                                     <a href="{{route('car_list')}}" class="dropdown-item ">Car List</a>
-                                    <a href="./charts.html" class="dropdown-item ">--</a>
+                                    <a href="{{route('car_new')}}" class="dropdown-item ">Create Car</a>
                                     <a href="./pricing-cards.html" class="dropdown-item ">--</a>
                                 </div>
                             </li>
