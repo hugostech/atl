@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Car;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,28 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $ruc = [];
+        $cof = [];
+        $service = [];
+        $reg = [];
+
+        foreach (Car::all() as $car){
+            if ($car->trashed()){
+                continue;
+            }
+            if ($car->needCof()){
+                $cof[] = $car;
+            }
+            if ($car->needRuc()){
+                $ruc[] = $car;
+            }
+            if ($car->needReg()){
+                $reg[] = $car;
+            }
+            if ($car->needService()){
+                $service[] = $car;
+            }
+        }
+        return view('home', compact('service','ruc','cof','reg'));
     }
 }

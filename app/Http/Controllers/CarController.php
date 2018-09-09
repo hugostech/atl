@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Car;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CarController extends Controller
 {
     public function list(){
-        return view('car.index');
+        $cars = Car::all();
+        return view('car.index',compact('cars'));
     }
 
     public function getCarInfo(Request $request){
@@ -23,18 +25,32 @@ class CarController extends Controller
     }
 
     public function saveCar(Request $request){
-        //to do
+        $this->validate($request, [
+            'plate'=>'required|unique:cars'
+        ]);
+
+        $car = Car::create($request->all());
+        $car->sharing_mark = md5(Str::uuid());
+        $car->save();
+        return redirect()->route('car_list');
     }
 
-    public function updateCar(Request $request){
-        //to do
+    public function editCar($id){
+        $car = Car::find($id);
+        return view('car.edit',compact('car'));
     }
 
-    public function removeCar($car_id){
-        $car = Car::find($car_id);
+    public function updateCar($id,Request $request){
+        Car::find($id)->update($request->all());
+        return redirect()->route('car_edit',['id'=>$id])->with('update_success','Update Success');
+    }
+
+    public function removeCar($id){
+        $car = Car::find($id);
         if (!is_null($car)){
-            $car->trashed();
+            $car->delete();
         }
+        return redirect()->route('car_list')->with('success','Delete Success');
     }
 
     /**
@@ -42,11 +58,7 @@ class CarController extends Controller
      * display car detail page
      */
     public function showCar($car_id){
-        //to do
+        return redirect()->route('car_edit',['id'=>$car_id]);
     }
-
-
-
-
 
 }

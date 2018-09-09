@@ -16,11 +16,10 @@ class CreateMileageHistoriesTable extends Migration
         Schema::create('mileage_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('mileage');
+            $table->integer('odometer_reading');
             $table->unsignedInteger('car_id');
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
-            $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('editor');
         });
     }
 

@@ -15,26 +15,8 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-sm-5 col-md-4 col-xl-2">
-            <nav class="navbar bg-light">
 
-                <!-- Links -->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="{{route('car_list')}}">Cars</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">Upcoming Event</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">Reminder</a>
-                    </li>
-                </ul>
-
-            </nav>
-
-        </div>
-        <div class="col-sm-7 col-md-8 col-xl-10">
+        <div class="col-12">
             @yield('page')
         </div>
     </div>

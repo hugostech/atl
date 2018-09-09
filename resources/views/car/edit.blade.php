@@ -4,26 +4,23 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            {!! Form::open(['route'=>'car_create','method'=>'post','class'=>'card','onsubmit'=>"return confirm('Are you sure?')"]) !!}
+            {!! Form::model($car,['route'=>['car_update','id'=>$car->id],'method'=>'post','class'=>'card','onsubmit'=>"return confirm('Are you sure?')"]) !!}
             <div class="card-header">
-                <h3 class="card-title">Create Car</h3>
+                <h3 class="card-title">Edit Car {{$car->plate}}</h3>
             </div>
             <div class="card-body">
+                @if(\Illuminate\Support\Facades\Session::has('update_success'))
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> {{\Illuminate\Support\Facades\Session::get('update_success')}}
+                    </div>
+                @endif
                 @component('components.error')
                 @endcomponent
                 <div class="row">
 
-                    <div class="col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <label class="form-label">Plate <span class="form-required">*</span></label>
-                            <div class="input-group">
-                                {!! Form::text('plate',null,['class'=>'form-control','placeholder'=>'Plate','required']) !!}
-                                <span class="input-group-append">
-                                  <button class="btn btn-default" type="button">Fill (Beta)</button>
-                                </span>
-                            </div>
 
-                        </div>
+                    <div class="col-md-6 col-lg-4">
+
                         <div class="form-group">
                             <label class="form-label">No of Seats <span class="form-required">*</span></label>
                             {!! Form::number('no_of_seats',null,['class'=>'form-control','placeholder'=>'Seats','required']) !!}
@@ -47,7 +44,7 @@
                             {!! Form::text('year_of_manufacture',null,['class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::submit('Save',['class'=>'btn btn-primary']) !!}
+                            {!! Form::submit('Update',['class'=>'btn btn-primary']) !!}
                         </div>
 
                     </div>

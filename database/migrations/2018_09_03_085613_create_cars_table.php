@@ -16,16 +16,21 @@ class CreateCarsTable extends Migration
         Schema::create('cars', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('registration');
-            $table->string('model')->nullable();
-            $table->integer('seats')->nullable();
-            $table->string('typeno')->nullable();
-            $table->integer('color')->nullable();
+            $table->string('plate');
+            $table->unsignedInteger('no_of_seats')->nullable();
+            $table->string('tyreinfo')->nullable();
+            $table->unsignedInteger('year_of_manufacture')->nullable();
             $table->date('cof')->nullable();
             $table->date('reg')->nullable();
-            $table->integer('mileage')->default(0);
-            $table->integer('ruc')->default(0);
             $table->integer('service')->nullable();
+            $table->integer('ruc')->default(0);
+            $table->string('make')->nullable();
+            $table->string('model')->nullable();
+            $table->string('vin')->nullable();
+            $table->string('main_colour')->nullable();
+            $table->string('engine_no')->nullable();
+            $table->integer('odometer_reading')->default(0);
+            $table->string('sharing_mark')->nullable();
             $table->softDeletes();
 
         });
