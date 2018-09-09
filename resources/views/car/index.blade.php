@@ -42,7 +42,7 @@
                                 <div class="clearfix">
                                     @php
                                     $r = ($car->ruc-$car->odometer_reading);
-                                    $p = round((10000-$r)/100);
+                                    $p = round($r/100);
                                     $s = round(($car->service-$car->odometer_reading)/$car->service*100);
                                     $c = 'green';
                                     if ($p<=10){
