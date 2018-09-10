@@ -65,7 +65,7 @@
                                 </div>
 
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <div class="small text-muted">Expired On</div>
                                 <div>{{\Carbon\Carbon::parse($car->cof)->format('d M Y')}}</div>
                             </td>
