@@ -143,7 +143,7 @@
                                 <td><a href="{{route('car_detail',['id'=>$car->id])}}">{{$car->plate}}</a></td>
                                 <td class="text-right">
                                     @php
-                                    $d = \Carbon\Carbon::parse($car->reg)->diffInDays(\Carbon\Carbon::now())
+                                    $d = \Carbon\Carbon::parse($car->reg)->diffInDays(\Carbon\Carbon::now(),false)
                                     @endphp
                                     @if($d>0)
                                         <span class="badge badge-success">Expire in {{$d}} days</span>
@@ -170,7 +170,7 @@
                                 <td><a href="{{route('car_detail',['id'=>$car->id])}}">{{$car->plate}}</a></td>
                                 <td class="text-right">
                                     @php
-                                    $d = \Carbon\Carbon::parse($car->cof)->diffInDays(\Carbon\Carbon::now())
+                                    $d = \Carbon\Carbon::parse($car->cof)->diffInDays(\Carbon\Carbon::now(),false)
                                     @endphp
                                     @if($d>0)
                                         <span class="badge badge-success">Expire in {{$d}} days</span>
