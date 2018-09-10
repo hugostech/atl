@@ -17,7 +17,7 @@
                             <th class="text-center w-1"><i class="icon-people"></i></th>
                             <th>Plate</th>
                             <th>RUC</th>
-                            <th class="text-center">COF</th>
+                            <th>COF</th>
                             <th>REG</th>
                             <th class="text-center">Service</th>
                             <th class="text-center">TYREINFO</th>
