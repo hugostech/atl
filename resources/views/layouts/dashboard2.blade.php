@@ -155,7 +155,7 @@
 
                 </div>
                 <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
-                    Copyright © 2018 <a href=".">Tabler</a>. Theme by <a href="http://backbonestudios.co.nz" target="_blank">Backbone Studios</a> All rights reserved.
+                    Copyright © 2018 <a href="#">ATL</a>. All rights reserved.
                 </div>
             </div>
         </div>

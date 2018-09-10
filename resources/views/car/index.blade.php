@@ -19,7 +19,7 @@
                             <th>RUC</th>
                             <th class="text-center">COF</th>
                             <th>REG</th>
-                            <th class="text-center">Serivce</th>
+                            <th class="text-center">Service</th>
                             <th class="text-center">TYREINFO</th>
                             <th class="text-center"><i class="icon-settings"></i></th>
                         </tr>
