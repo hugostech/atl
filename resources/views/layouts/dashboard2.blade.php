@@ -15,7 +15,7 @@
     <link rel="icon" href="{{asset('dist/favicon.ico')}}" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('dist/favicon.ico')}}" />
     <!-- Generated: 2018-04-16 09:29:05 +0200 -->
-    <title>Homepage - tabler.github.io - a responsive, flat and full featured admin template</title>
+    <title>{{ config('app.name', 'ATL') }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <script src="{{asset('dist/assets/js/require.min.js')}}"></script>
@@ -43,7 +43,7 @@
             <div class="container">
                 <div class="d-flex">
                     <a class="header-brand" href="{{route('home')}}">
-                        ATL SYSTEM
+                        {{ config('app.name', 'ATL') }}
                     </a>
                     <div class="d-flex order-lg-2 ml-auto">
 
@@ -131,10 +131,10 @@
                                 <a href="{{route('home')}}" class="nav-link"><i class="fe fe-home"></i> Home</a>
                             </li>
                             <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-box"></i> Car Management</a>
+                                <a href="javascript:void(0)" class="nav-link text-capitalize" data-toggle="dropdown"><i class="fe fe-box"></i> Vehicle Management</a>
                                 <div class="dropdown-menu dropdown-menu-arrow">
-                                    <a href="{{route('car_list')}}" class="dropdown-item ">Car List</a>
-                                    <a href="{{route('car_new')}}" class="dropdown-item ">Create Car</a>
+                                    <a href="{{route('car_list')}}" class="dropdown-item text-capitalize">Vehicle List</a>
+                                    <a href="{{route('car_new')}}" class="dropdown-item text-capitalize">Create Vehicle</a>
                                 </div>
                             </li>
 
@@ -155,7 +155,7 @@
 
                 </div>
                 <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
-                    Copyright © 2018 <a href="#">ATL</a>. All rights reserved.
+                    Copyright © 2018 <a href="#">{{config('app.name')}}</a>. All rights reserved.
                 </div>
             </div>
         </div>

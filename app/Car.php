@@ -12,7 +12,8 @@ class Car extends Model
     protected $dates = ['deleted_at'];
     protected $fillable=[
         'odometer_reading','plate','no_of_seats','tyreinfo','year_of_manufacture','cof',
-        'reg','service','ruc','make','model','vin','engine_no','main_colour'
+        'reg','service','ruc','make','model','vin','engine_no','main_colour','last_service_date',
+        'hubemeter_reading','company','last_editor'
     ];
     public function mileage_histories(){
         return $this->hasMany('App\MileageHistory','car_id','id');
@@ -34,5 +35,9 @@ class Car extends Model
     public function needReg(){
         $reg = Carbon::parse($this->reg)->subMonth();
         return Carbon::now()->gt($reg);
+    }
+
+    public function lastEditor(){
+        return $this->belongsTo('App\User','last_editor');
     }
 }
