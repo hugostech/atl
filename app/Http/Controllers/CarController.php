@@ -40,6 +40,11 @@ class CarController extends Controller
         return view('car.edit',compact('car'));
     }
 
+    public function editCarByPlate($plate){
+        $car = Car::where('plate',$plate)->first();
+        return view('car.edit',compact('car'));
+    }
+
     public function updateCar($id,Request $request){
         Car::find($id)->update($request->all());
         return redirect()->route('car_edit',['id'=>$id])->with('update_success','Update Success');

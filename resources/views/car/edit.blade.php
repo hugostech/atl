@@ -37,10 +37,10 @@
                             {!! Form::text('tyreinfo',null,['class'=>'form-control','placeholder'=>'eg: 255/70R22.5','required']) !!}
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Current Odometer Reading <span class="form-required">*</span></label>
+                            <label class="form-label">Current Odometer Reading</label>
 
                             <div class="input-group">
-                                {!! Form::number('odometer_reading',null,['class'=>'form-control','required']) !!}
+                                {!! Form::number('odometer_reading',null,['class'=>'form-control']) !!}
                                 <span class="input-group-append">
                                     <span class="input-group-text">KM</span>
                                 </span>

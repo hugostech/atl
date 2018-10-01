@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Car;
+use App\Libs\Reminder;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,28 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $ruc = [];
-        $cof = [];
-        $service = [];
-        $reg = [];
-
-        foreach (Car::all() as $car){
-            if ($car->trashed()){
-                continue;
-            }
-            if ($car->needCof()){
-                $cof[] = $car;
-            }
-            if ($car->needRuc()){
-                $ruc[] = $car;
-            }
-            if ($car->needReg()){
-                $reg[] = $car;
-            }
-            if ($car->needService()){
-                $service[] = $car;
-            }
-        }
+        $reminder = new Reminder();
+        $ruc = $reminder->getNeedRucCars();
+        $cof = $reminder->getNeedCofCars();
+        $service = $reminder->getNeedServiceCars();
+        $reg = $reminder->getNeedRegCars();
         return view('home', compact('service','ruc','cof','reg'));
     }
 }

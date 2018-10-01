@@ -20,21 +20,34 @@ class Car extends Model
     }
 
     public function needService(){
-        return $this->service-$this->odometer_reading<1000;
+        if ($this->odometer_reading>0){
+            return $this->service-$this->odometer_reading;
+        }else{
+            return false;
+        }
+
     }
 
     public function needCof(){
-        $cof = Carbon::parse($this->cof)->subMonth();
-        return Carbon::now()->gt($cof);
+        return Carbon::now()->diffInDays(Carbon::parse($this->cof),false);
     }
 
     public function needRuc(){
-        return $this->ruc-$this->odometer_reading<1000;
+        if ($this->ruc>0){
+            if ($this->hubemeter_reading>0){
+                return $this->ruc - $this->hubemeter_reading;
+            }elseif ($this->odometer_reading>0){
+                return $this->ruc - $this->odometer_reading;
+            }else{
+                Throw new \Exception('Setting error, missing odometer reading or hubemeter reading');
+            }
+        }else{
+            return false;
+        }
     }
 
     public function needReg(){
-        $reg = Carbon::parse($this->reg)->subMonth();
-        return Carbon::now()->gt($reg);
+        return Carbon::now()->diffInDays(Carbon::parse($this->reg),false);
     }
 
     public function lastEditor(){

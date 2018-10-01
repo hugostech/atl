@@ -91,20 +91,32 @@
                     <h4 class="card-title">Service</h4>
                 </div>
                 <table class="table card-table">
-                    @if(count($service)>0)
-                    @foreach($service as $car)
-                        <tr>
-                            <td><a href="{{route('car_detail',['id'=>$car->id])}}">{{$car->plate}}</a></td>
-                            <td class="text-right">
-                                @if($car->service-$car->odometer_reading>0)
-                                    <span class="badge badge-success">Less Than 1000km</span>
-                                @else
-                                    <span class="badge badge-danger">Expired</span>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
+                    {{--@if(count($service)>0)--}}
+                    {{--@foreach($service as $car)--}}
+                        {{--<tr>--}}
+                            {{--<td><a href="{{route('car_detail',['id'=>$car->id])}}">{{$car->plate}}</a></td>--}}
+                            {{--<td class="text-right">--}}
+                                {{--@if($car->service-$car->odometer_reading>0)--}}
+                                    {{--<span class="badge badge-success">Less Than 1000km</span>--}}
+                                {{--@else--}}
+                                    {{--<span class="badge badge-danger">Expired</span>--}}
+                                {{--@endif--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
+                    {{--@endforeach--}}
+                    {{--@endif--}}
+                    @foreach($service as $plate=>$car)
+                    <tr>
+                    <td><a href="{{route('car_edit_by_plate',['plate'=>$plate])}}" class="text-uppercase">{{$plate}}</a></td>
+                    <td class="text-right">
+                    @if($car>0)
+                    <span class="badge badge-success">Less Than {{$car}}km</span>
+                    @else
+                    <span class="badge badge-danger">Expired ({{$car}}km)</span>
                     @endif
+                    </td>
+                    </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
@@ -114,20 +126,20 @@
                     <h2 class="card-title">RUC</h2>
                 </div>
                 <table class="table card-table">
-                    @if(count($ruc)>0)
-                        @foreach($ruc as $car)
-                            <tr>
-                                <td><a href="{{route('car_detail',['id'=>$car->id])}}">{{$car->plate}}</a></td>
-                                <td class="text-right">
-                                    @if($car->ruc-$car->odometer_reading>0)
-                                        <span class="badge badge-success">Less Than 1000km</span>
-                                    @else
-                                        <span class="badge badge-danger">Expired</span>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
+
+                    @foreach($ruc as $plate=>$car)
+                        <tr>
+                            <td><a href="{{route('car_edit_by_plate',['plate'=>$plate])}}" class="text-uppercase">{{$plate}}</a></td>
+                            <td class="text-right">
+                                @if($car>0)
+                                    <span class="badge badge-success">Less Than 1000km</span>
+                                @else
+                                    <span class="badge badge-danger">Expired ({{$car}}km)</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+
                 </table>
             </div>
         </div>
@@ -137,51 +149,39 @@
                     <h2 class="card-title">REG</h2>
                 </div>
                 <table class="table card-table">
-                    @if(count($reg)>0)
-                        @foreach($reg as $car)
-                            <tr>
-                                <td><a href="{{route('car_detail',['id'=>$car->id])}}">{{$car->plate}}</a></td>
-                                <td class="text-right">
-                                    @php
-                                    $d = \Carbon\Carbon::parse($car->reg)->diffInDays(\Carbon\Carbon::now(),false)
-                                    @endphp
-                                    @if($d>0)
-                                        <span class="badge badge-success">Expire in {{$d}} days</span>
-                                    @else
-                                        <span class="badge badge-danger">Expired</span>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
-
+                    @foreach($reg as $plate=>$car)
+                        <tr>
+                            <td><a href="{{route('car_edit_by_plate',['plate'=>$plate])}}" class="text-uppercase">{{$plate}}</a></td>
+                            <td class="text-right">
+                                @if($car>0)
+                                    <span class="badge badge-success">Expire in {{$car}} days</span>
+                                @else
+                                    <span class="badge badge-danger">Expired</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
         <div class="col-sm-6 col-lg-3">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">COF</h2>
+                    <h2 class="card-title">COF/WOF</h2>
                 </div>
                 <table class="table card-table">
-                    @if(count($cof)>0)
-                        @foreach($cof as $car)
-                            <tr>
-                                <td><a href="{{route('car_detail',['id'=>$car->id])}}">{{$car->plate}}</a></td>
-                                <td class="text-right">
-                                    @php
-                                    $d = \Carbon\Carbon::parse($car->cof)->diffInDays(\Carbon\Carbon::now(),false)
-                                    @endphp
-                                    @if($d>0)
-                                        <span class="badge badge-success">Expire in {{$d}} days</span>
-                                    @else
-                                        <span class="badge badge-danger">Expired</span>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
-
+                    @foreach($cof as $plate=>$car)
+                        <tr>
+                            <td><a href="{{route('car_edit_by_plate',['plate'=>$plate])}}" class="text-uppercase">{{$plate}}</a></td>
+                            <td class="text-right">
+                                @if($car>0)
+                                    <span class="badge badge-success">Expire in {{$car}} days</span>
+                                @else
+                                    <span class="badge badge-danger">Expired</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
