@@ -39,30 +39,9 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="clearfix">
-                                    @php
-                                    $r = ($car->ruc-$car->odometer_reading);
-                                    $p = round($r/100);
-                                    $s = round(($car->service-$car->odometer_reading)/$car->service*100);
-                                    $c = 'green';
-                                    if ($p<=10){
-                                        $c = 'red';
-                                    }elseif ($p<=30){
-                                        $c = 'yellow';
-                                    }
-                                    @endphp
-                                    <div class="float-left">
-                                        <strong>{{$p}}%</strong>
-                                    </div>
-                                    <div class="float-right">
-                                        <div>{{$car->odometer_reading}}/{{$car->ruc}}</div>
-                                        <small class="text-muted">{{$r}}/10000</small>
-                                    </div>
-                                </div>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar bg-{{$c}}" role="progressbar" style="width: {{$p}}%"
-                                         aria-valuenow="{{$p}}" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                @component('components.ruc',['car'=>$car])
+                                    N/A
+                                @endcomponent
 
                             </td>
                             <td>
@@ -75,12 +54,9 @@
                             </td>
 
                             <td class="text-center">
-                                <div class="mx-auto chart-circle chart-circle-xs" data-value="{{$s/100}}" data-thickness="3" data-color="blue">
-                                    <div class="chart-circle-value">{{$s}}%</div>
-                                </div>
-                                <div class="mx-auto">
-                                    {{$car->odometer_reading}}/{{$car->service}}
-                                </div>
+                                @component('components.service',['car'=>$car])
+                                    N/A
+                                @endcomponent
                             </td>
                             <td class="text-center">
                                 <div>{{$car->tyreinfo}}</div>

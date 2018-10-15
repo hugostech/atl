@@ -137,6 +137,10 @@
                                     <a href="{{route('car_new')}}" class="dropdown-item text-capitalize">Create Vehicle</a>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                @component('components.company_filter')
+                                @endcomponent
+                            </li>
 
                         </ul>
                     </div>
@@ -147,7 +151,8 @@
             @yield('page')
         </div>
     </div>
-
+    <script src="{{asset('dist/assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
+    <script src="{{asset('js/system.js')}}"></script>
     <footer class="footer">
         <div class="container">
             <div class="row align-items-center flex-row-reverse">

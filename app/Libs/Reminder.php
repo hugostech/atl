@@ -12,9 +12,14 @@ use App\Car;
 class Reminder
 {
     public $cars;
-    public function __construct()
+    public function __construct($company=null)
     {
-        $this->cars = Car::all();
+        if (!empty($company)){
+            $this->cars = Car::where('company',$company)->get();
+        }else{
+            $this->cars = Car::all();
+        }
+
     }
 
     public function getNeedServiceCars(){

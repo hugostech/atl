@@ -15,7 +15,7 @@
                         {{--6%--}}
                         <i class="fe fe-chevron-up"></i>
                     </div>
-                    <div class="h1 m-0"><a href="{{route('car_list')}}">{{\App\Car::all()->count()}}</a></div>
+                    <div class="h1 m-0"><a href="{{route('car_list')}}">{{\App\Car::where('company','like',\Illuminate\Support\Facades\Input::get('company','%'))->count()}}</a></div>
                     <div class="text-muted mb-4">Car Number</div>
                 </div>
             </div>
@@ -189,4 +189,5 @@
     </div>
 
 </div>
+
 @endsection

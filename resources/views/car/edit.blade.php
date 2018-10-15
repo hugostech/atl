@@ -101,8 +101,8 @@
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label class="form-label">Company</label>
-                            {!! Form::select('company',config('car.company',[]),null,['class'=>'form-control','placeholder'=>'Select Company']) !!}
+                            <label class="form-label">Company <span class="form-required">*</span></label>
+                            {!! Form::select('company',config('car.company',[]),null,['class'=>'form-control','placeholder'=>'Select Company', 'required']) !!}
                         </div>
                         <div class="form-group">
                             <label class="form-label">Make</label>

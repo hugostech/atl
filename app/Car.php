@@ -20,7 +20,7 @@ class Car extends Model
     }
 
     public function needService(){
-        if ($this->odometer_reading>0){
+        if ($this->odometer_reading>0 && !empty($this->service)){
             return $this->service-$this->odometer_reading;
         }else{
             return false;

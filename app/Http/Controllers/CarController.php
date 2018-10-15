@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Car;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
 
 class CarController extends Controller
 {
     public function list(){
-        $cars = Car::all();
+        if (empty(Input::get('company',null))){
+            $cars = Car::all();
+        }else{
+            $cars = Car::where('company',Input::get('company'))->get();
+        }
+
         return view('car.index',compact('cars'));
     }
 
