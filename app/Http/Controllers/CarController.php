@@ -38,7 +38,7 @@ class CarController extends Controller
         $this->validate($request, [
             'plate'=>'required|unique:cars'
         ]);
-
+        
         $car = Car::create($request->all());
         $car->sharing_mark = md5(Str::uuid());
         $car->save();

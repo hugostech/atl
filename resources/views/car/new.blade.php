@@ -7,12 +7,12 @@
             {!! Form::open(['route'=>'car_create','method'=>'post','class'=>'card','onsubmit'=>"return confirm('Are you sure?')"]) !!}
             {!! Form::hidden('last_editor',\Illuminate\Support\Facades\Auth::user()->id) !!}
             <div class="card-header">
-                <h3 class="card-title">Create Vehicle</h3>
+                <h3 class="card-title">Create Vehicle - Car</h3>
             </div>
             <div class="card-body">
                 <div class="btn-group">
-                    <a href="{{ url('car/new') }}" class="btn btn-primary mybtn" type="button">New Car</a>
-                    <a href="{{ url('car/new_digger') }}" class="btn btn-primary mybtn" type="button">Digger</a>
+                    <a href="{{ url('car/new') }}" class="vehicle">{{Html::image(asset('dist/assets/images/car.png'))}}</a>
+                    <a href="{{ url('car/new_digger') }}" class="vehicle" >{{Html::image(asset('dist/assets/images/digger.png'))}}</a>                    
                 </div>
 
                 @component('components.error')
@@ -33,10 +33,12 @@
                             <label class="form-label">No of Seats <span class="form-required">*</span></label>
                             {!! Form::number('no_of_seats',null,['class'=>'form-control','placeholder'=>'Seats','required']) !!}
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="form-label">Vehicle Type <span class="form-required">*</span></label>
                             {!! Form::select('vehicle_type',array('Vehicle' => 'Vehicle', 'Digger Vehicle' => 'Digger Vehicle'),null,['class'=>'form-control', 'required']) !!}
-                        </div>
+                        </div> -->
+                        {{ Form::hidden('vehicle_type', 'Vehicle') }}
+
                         <div class="form-group">
                             <label class="form-label">Tyre Info <span class="form-required">*</span></label>
                             {!! Form::text('tyreinfo',null,['class'=>'form-control','placeholder'=>'eg: 255/70R22.5','required']) !!}

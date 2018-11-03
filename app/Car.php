@@ -13,7 +13,8 @@ class Car extends Model
     protected $fillable=[
         'odometer_reading','plate','no_of_seats','tyreinfo','year_of_manufacture','cof',
         'reg','service','ruc','make','model','vin','engine_no','main_colour','last_service_date',
-        'hubemeter_reading','company','last_editor','vehicle_type'
+        'hubemeter_reading','company','last_editor','vehicle_type', 'hours', 'service_hours', 
+        'reminder'
     ];
     public function mileage_histories(){
         return $this->hasMany('App\MileageHistory','car_id','id');

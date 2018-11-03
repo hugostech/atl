@@ -18609,6 +18609,7 @@ svg {
   content: "\ea06";
 }
 
-.mybtn{
-  margin-right: 2px;
+.vehicle{
+  margin-right: 20px;
+  max-width: 10%;
 }
