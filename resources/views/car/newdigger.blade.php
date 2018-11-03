@@ -30,16 +30,16 @@
 
                         </div>
                         <div class="form-group">
-                            <label class="form-label">No of Seats <span class="form-required">*</span></label>
-                            {!! Form::number('no_of_seats',null,['class'=>'form-control','placeholder'=>'Seats','required']) !!}
+                            <label class="form-label">Hours <span class="form-required">*</span></label>
+                            {!! Form::number('hours',null,['class'=>'form-control','placeholder'=>'Hours','required']) !!}
                         </div>
                         <div class="form-group">
                             <label class="form-label">Vehicle Type <span class="form-required">*</span></label>
-                            {!! Form::select('vehicle_type',array('Vehicle' => 'Vehicle', 'Digger Vehicle' => 'Digger Vehicle'),null,['class'=>'form-control', 'required']) !!}
-                        </div>
+                            {!! Form::select('vehicle_type',array('Digger Vehicle' => 'Digger Vehicle', 'Vehicle' => 'Vehicle'),null,['class'=>'form-control', 'required']) !!}
+                        </div>                        
                         <div class="form-group">
-                            <label class="form-label">Tyre Info <span class="form-required">*</span></label>
-                            {!! Form::text('tyreinfo',null,['class'=>'form-control','placeholder'=>'eg: 255/70R22.5','required']) !!}
+                            <label class="form-label">Tyre Info </label>
+                            {!! Form::text('tyreinfo',null,['class'=>'form-control','placeholder'=>'eg: 255/70R22.5']) !!}
                         </div>
                         <div class="form-group">
                             <label class="form-label">Current Odometer Reading</label>
@@ -69,16 +69,16 @@
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label class="form-label">COF/WOF Expires On<span class="form-required">*</span></label>
-                            {!! Form::date('cof',null,['class'=>"form-control",'required']) !!}
+                            <label class="form-label">COF/WOF Expires On</label>
+                            {!! Form::date('cof',null,['class'=>"form-control"]) !!}
                         </div>
                         <div class="form-group">
-                            <label class="form-label">REG Expires On<span class="form-required">*</span></label>
-                            {!! Form::date('reg',null,['class'=>"form-control",'required']) !!}
+                            <label class="form-label">REG Expires On</label>
+                            {!! Form::date('reg',null,['class'=>"form-control"]) !!}
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Last Service Date<span class="form-required">*</span></label>
-                            {!! Form::date('last_service_date',null,['class'=>"form-control",'required']) !!}
+                            <label class="form-label">Last Service Date<span </label>
+                            {!! Form::date('last_service_date',null,['class'=>"form-control"]) !!}
                         </div>
                         <div class="form-group">
                             <label class="form-label">Next Service</label>

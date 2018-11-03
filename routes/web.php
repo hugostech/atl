@@ -26,6 +26,7 @@ Route::post('/update/{mark}','PublicController@saveOdometer')->name('save_odomet
 Route::prefix('car')->middleware(['web','auth'])->group(function (){
     Route::get('list','CarController@list')->name('car_list');
     Route::get('new','CarController@newCar')->name('car_new');
+    Route::get('new_digger','CarController@newDigger')->name('car_new_digger');
     Route::get('/{id}/edit','CarController@editCar')->name('car_edit');
     Route::get('/{plate}/platedit','CarController@editCarByPlate')->name('car_edit_by_plate');
     Route::get('/{id}/detail','CarController@showCar')->name('car_detail');
