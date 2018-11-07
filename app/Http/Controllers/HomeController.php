@@ -31,6 +31,7 @@ class HomeController extends Controller
         $cof = $reminder->getNeedCofCars();
         $service = $reminder->getNeedServiceCars();
         $reg = $reminder->getNeedRegCars();
-        return view('home', compact('service','ruc','cof','reg'));
+        $digger_remind_list = json_encode($reminder->getDiggerReminders());
+        return view('home', compact('service','ruc','cof','reg','digger_remind_list'));
     }
 }

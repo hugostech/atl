@@ -22,6 +22,17 @@ class Reminder
 
     }
 
+    public function getDiggerReminders(){
+        $reminders = [];
+        foreach ($this->cars as $car){
+            $need_reminder = $car->needDiggerReminder();
+            if ($need_reminder){
+                $reminders[] = $car;          
+            }
+        }
+        return $reminders;
+    }
+
     public function getNeedServiceCars(){
         $cars = [];
         foreach ($this->cars as $car){

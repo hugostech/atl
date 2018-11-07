@@ -120,6 +120,7 @@
                 </table>
             </div>
         </div>
+        {{print_r($digger_remind_list)}}
         <div class="col-sm-6 col-lg-3">
             <div class="card">
                 <div class="card-header">

@@ -37,10 +37,7 @@
                             <label class="form-label">Service Hours </label>
                             {!! Form::number('service_hours',null,['class'=>'form-control','placeholder'=>'Service Hours']) !!}
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Reminder </label>
-                            {!! Form::number('reminder',null,['class'=>'form-control','placeholder'=>'Reminder']) !!}
-                        </div>
+                        
                         {{ Form::hidden('vehicle_type', 'Digger Vehicle') }}                     
                         <div class="form-group">
                             <label class="form-label">Tyre Info </label>
