@@ -22,28 +22,31 @@ class Reminder
 
     }
 
-    public function getDiggerReminders(){
-        $reminders = [];
-        foreach ($this->cars as $car){
-            $need_reminder = $car->needDiggerReminder();
-            if ($need_reminder){
-                $reminders[] = $car;          
-            }
-        }
-        return $reminders;
-    }
-
     public function getNeedServiceCars(){
         $cars = [];
+        $diggers = [];
+        $digger_service_notification_level = 10;
+
         foreach ($this->cars as $car){
             $ruc = $car->needService();
             if ($ruc!==false){
-                if ($ruc<1500){
-                    $cars[$car->plate] = $ruc;
+                if ($car->vehicle_type == "Digger Vehicle") {
+                    if ($ruc < $digger_service_notification_level) {
+                        $diggers[$car->plate] = $ruc;
+                    }
                 }
+                else {
+                    if ($ruc<1500){
+                        $cars[$car->plate] = $ruc;
+                    }
+                }
+                
             }
         }
-        return $cars;
+        return array(
+            "cars" => $cars,
+            "diggers" => $diggers
+        );
     }
 
     public function getNeedRucCars(){

@@ -19,22 +19,21 @@ class Car extends Model
         return $this->hasMany('App\MileageHistory','car_id','id');
     }
 
-    public function needDiggerReminder() {
-        $reminder = $this->hours - $this->service_hours;
-        if ($this->vehicle_type == "Digger Vehicle" && $reminder > 0 && $reminder <=5) {
-            return true;
-        }else{
-            return false;
-        }        
-    }
-
     public function needService(){
-        if ($this->odometer_reading>0 && !empty($this->service)){
-            return $this->service-$this->odometer_reading;
-        }else{
-            return false;
+        if ($this->vehicle_type == "Digger Vehicle") {
+            $reminder = $this->hours - $this->service_hours;
+            if (!empty($reminder)) {
+                return $reminder;
+            }else{
+                return false;
+            }
+        }else {
+            if ($this->odometer_reading>0 && !empty($this->service)){
+                return $this->service-$this->odometer_reading;
+            }else{
+                return false;
+            }
         }
-
     }
 
     public function needCof(){

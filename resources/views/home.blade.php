@@ -91,8 +91,8 @@
                     <h4 class="card-title">Service</h4>
                 </div>
                 <table class="table card-table">
-                    {{--@if(count($service)>0)--}}
-                    {{--@foreach($service as $car)--}}
+                    {{--@if(count($service['cars'])>0)--}}
+                    {{--@foreach($service['cars'] as $car)--}}
                         {{--<tr>--}}
                             {{--<td><a href="{{route('car_detail',['id'=>$car->id])}}">{{$car->plate}}</a></td>--}}
                             {{--<td class="text-right">--}}
@@ -105,7 +105,7 @@
                         {{--</tr>--}}
                     {{--@endforeach--}}
                     {{--@endif--}}
-                    @foreach($service as $plate=>$car)
+                    @foreach($service['cars'] as $plate=>$car)
                     <tr>
                     <td><a href="{{route('car_edit_by_plate',['plate'=>$plate])}}" class="text-uppercase">{{$plate}}</a></td>
                     <td class="text-right">
@@ -117,10 +117,37 @@
                     </td>
                     </tr>
                     @endforeach
+
+
+                    {{--@if(count($service['diggers'])>0)--}}
+                    {{--@foreach($service['diggers'] as $car)--}}
+                        {{--<tr>--}}
+                            {{--<td><a href="{{route('car_detail',['id'=>$car->id])}}">{{$car->plate}}</a></td>--}}
+                            {{--<td class="text-right">--}}
+                                {{--@if($car->service-$car->odometer_reading>0)--}}
+                                    {{--<span class="badge badge-success">Less Than 1000km</span>--}}
+                                {{--@else--}}
+                                    {{--<span class="badge badge-danger">Expired</span>--}}
+                                {{--@endif--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
+                    {{--@endforeach--}}
+                    {{--@endif--}}
+                    @foreach($service['diggers'] as $plate=>$car)
+                    <tr>
+                    <td><a href="{{route('car_edit_by_plate',['plate'=>$plate])}}" class="text-uppercase">{{$plate}}</a></td>
+                    <td class="text-right">
+                    @if($car>0)
+                    <span class="badge badge-success">Less Than {{$car}} hours</span>
+                    @else
+                    <span class="badge badge-danger">Expired ({{$car}} hours)</span>
+                    @endif
+                    </td>
+                    </tr>
+                    @endforeach
                 </table>
             </div>
-        </div>
-        {{print_r($digger_remind_list)}}
+        </div>        
         <div class="col-sm-6 col-lg-3">
             <div class="card">
                 <div class="card-header">

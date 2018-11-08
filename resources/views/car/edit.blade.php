@@ -6,8 +6,13 @@
         <div class="col-12">
             {!! Form::model($car,['route'=>['car_update','id'=>$car->id],'method'=>'post','class'=>'card','onsubmit'=>"return confirm('Are you sure?')"]) !!}
             {!! Form::hidden('last_editor',\Illuminate\Support\Facades\Auth::user()->id) !!}
+            {!! Form::hidden('vehicle_type', $car->vehicle_type) !!}
             <div class="card-header">
-                <h3 class="card-title">Edit Vehicle {{$car->plate}}</h3>
+                @if($car->vehicle_type == "Digger Vehicle")
+                    <h3 class="card-title">Edit Digger {{$car->plate}}</h3>
+                @else
+                    <h3 class="card-title">Edit Vehicle {{$car->plate}}</h3>
+                @endif
 
             </div>
             <div class="card-body">
@@ -27,11 +32,12 @@
 
 
                     <div class="col-md-6 col-lg-4">
-
+                        @if($car->vehicle_type == "Vehicle")
                         <div class="form-group">
                             <label class="form-label">No of Seats <span class="form-required">*</span></label>
                             {!! Form::number('no_of_seats',null,['class'=>'form-control','placeholder'=>'Seats','required']) !!}
                         </div>
+                        @endif
                         <div class="form-group">
                             <label class="form-label">Tyre Info <span class="form-required">*</span></label>
                             {!! Form::text('tyreinfo',null,['class'=>'form-control','placeholder'=>'eg: 255/70R22.5','required']) !!}
@@ -60,6 +66,14 @@
                             <label class="form-label">Year Of Manufacture</label>
                             {!! Form::text('year_of_manufacture',null,['class'=>'form-control']) !!}
                         </div>
+
+                        @if($car->vehicle_type == "Digger Vehicle")
+                        <div class="form-group">
+                            <label class="form-label">Hours<span class="form-required">*</span></label>
+                            {!! Form::text('hours',null,['class'=>'form-control', 'required']) !!}
+                        </div>
+                        @endif
+
                         <div class="form-group">
                             {!! Form::submit('Update',['class'=>'btn btn-primary']) !!}
                         </div>
@@ -98,6 +112,13 @@
                             </div>
 
                         </div>
+                        @if($car->vehicle_type == "Digger Vehicle")
+                        <div class="form-group">
+                            <label class="form-label">Service Hours</label>
+                            {!! Form::text('service_hours',null,['class'=>'form-control']) !!}
+                        </div>
+                        @endif
+
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="form-group">
