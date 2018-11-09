@@ -29,13 +29,13 @@ class Reminder
 
         foreach ($this->cars as $car){
             $ruc = $car->needService();
-            if ($ruc!==false){
+            if ($ruc !== false){
                 if ($car->vehicle_type == "Digger Vehicle") {
                     if ($ruc <= $digger_service_notification_level) {
                         $diggers[$car->plate] = $ruc;
                     }
                 } else {
-                    if ($ruc<1500){
+                    if ($ruc < 1500){
                         $cars[$car->plate] = $ruc;
                     }
                 }
