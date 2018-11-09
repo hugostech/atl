@@ -24,13 +24,13 @@ class Car extends Model
             $reminder = $this->service_hours - $this->hours;
             if (!empty($reminder)) {
                 return $reminder;
-            }else{
+            } else{
                 return false;
             }
-        }else {
+        } else {
             if ($this->odometer_reading>0 && !empty($this->service)){
-                return $this->service-$this->odometer_reading;
-            }else{
+                return $this->service - $this->odometer_reading;
+            } else{
                 return false;
             }
         }

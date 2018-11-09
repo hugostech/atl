@@ -34,8 +34,7 @@ class Reminder
                     if ($ruc <= $digger_service_notification_level) {
                         $diggers[$car->plate] = $ruc;
                     }
-                }
-                else {
+                } else {
                     if ($ruc<1500){
                         $cars[$car->plate] = $ruc;
                     }
