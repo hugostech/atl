@@ -6,6 +6,7 @@
         <div class="col-12">
             {!! Form::open(['route'=>'car_create','method'=>'post','class'=>'card','onsubmit'=>"return confirm('Are you sure?')"]) !!}
             {!! Form::hidden('last_editor',\Illuminate\Support\Facades\Auth::user()->id) !!}
+            {{ Form::hidden('vehicle_type', 'Digger Vehicle') }}
             <div class="card-header">
                 <h3 class="card-title">Create Vehicle - Digger</h3>
             </div>
@@ -28,17 +29,8 @@
                                 </span>
                             </div>
 
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Hours <span class="form-required">*</span></label>
-                            {!! Form::number('hours',null,['class'=>'form-control','placeholder'=>'Hours','required']) !!}
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Service Hours </label>
-                            {!! Form::number('service_hours',null,['class'=>'form-control','placeholder'=>'Service Hours']) !!}
-                        </div>
-                        
-                        {{ Form::hidden('vehicle_type', 'Digger Vehicle') }}                     
+                        </div>                                              
+                                             
                         <div class="form-group">
                             <label class="form-label">Tyre Info </label>
                             {!! Form::text('tyreinfo',null,['class'=>'form-control','placeholder'=>'eg: 255/70R22.5']) !!}
@@ -62,6 +54,15 @@
                                     <span class="input-group-text">KM</span>
                                 </span>
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Engine no</label>
+                            {!! Form::text('engine_no',null,['class'=>'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Main colour</label>
+                            {!! Form::text('main_colour',null,['class'=>'form-control']) !!}
                         </div>
                         
                         <div class="form-group">
@@ -123,14 +124,16 @@
                             <label class="form-label">Vin</label>
                             {!! Form::text('vin',null,['class'=>'form-control']) !!}
                         </div>
+                        
                         <div class="form-group">
-                            <label class="form-label">Engine no</label>
-                            {!! Form::text('engine_no',null,['class'=>'form-control']) !!}
+                            <label class="form-label">Hours <span class="form-required">*</span></label>
+                            {!! Form::number('hours',null,['class'=>'form-control','placeholder'=>'Hours','required']) !!}
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Main colour</label>
-                            {!! Form::text('main_colour',null,['class'=>'form-control']) !!}
+                            <label class="form-label">Service Hours <span class="form-required">*</span></label>
+                            {!! Form::number('service_hours',null,['class'=>'form-control','placeholder'=>'Service Hours','required']) !!}
                         </div>
+
                     </div>
                 </div>
             </div>

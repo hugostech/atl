@@ -6,6 +6,7 @@
         <div class="col-12">
             {!! Form::open(['route'=>'car_create','method'=>'post','class'=>'card','onsubmit'=>"return confirm('Are you sure?')"]) !!}
             {!! Form::hidden('last_editor',\Illuminate\Support\Facades\Auth::user()->id) !!}
+            {{ Form::hidden('vehicle_type', 'Vehicle') }}
             <div class="card-header">
                 <h3 class="card-title">Create Vehicle - Car</h3>
             </div>
@@ -33,12 +34,7 @@
                             <label class="form-label">No of Seats <span class="form-required">*</span></label>
                             {!! Form::number('no_of_seats',null,['class'=>'form-control','placeholder'=>'Seats','required']) !!}
                         </div>
-                        <!--<div class="form-group">
-                            <label class="form-label">Vehicle Type <span class="form-required">*</span></label>
-                            {!! Form::select('vehicle_type',array('Vehicle' => 'Vehicle', 'Digger Vehicle' => 'Digger Vehicle'),null,['class'=>'form-control', 'required']) !!}
-                        </div> -->
-                        {{ Form::hidden('vehicle_type', 'Vehicle') }}
-
+                        
                         <div class="form-group">
                             <label class="form-label">Tyre Info <span class="form-required">*</span></label>
                             {!! Form::text('tyreinfo',null,['class'=>'form-control','placeholder'=>'eg: 255/70R22.5','required']) !!}

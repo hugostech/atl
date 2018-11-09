@@ -31,7 +31,7 @@ class Reminder
             $ruc = $car->needService();
             if ($ruc!==false){
                 if ($car->vehicle_type == "Digger Vehicle") {
-                    if ($ruc < $digger_service_notification_level) {
+                    if ($ruc <= $digger_service_notification_level) {
                         $diggers[$car->plate] = $ruc;
                     }
                 }

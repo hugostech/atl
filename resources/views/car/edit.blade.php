@@ -65,15 +65,13 @@
                         <div class="form-group">
                             <label class="form-label">Year Of Manufacture</label>
                             {!! Form::text('year_of_manufacture',null,['class'=>'form-control']) !!}
-                        </div>
-
-                        @if($car->vehicle_type == "Digger Vehicle")
+                        </div>         
+                        
                         <div class="form-group">
-                            <label class="form-label">Hours<span class="form-required">*</span></label>
-                            {!! Form::text('hours',null,['class'=>'form-control', 'required']) !!}
+                            <label class="form-label">Engine no</label>
+                            {!! Form::text('engine_no',null,['class'=>'form-control']) !!}
                         </div>
-                        @endif
-
+                        
                         <div class="form-group">
                             {!! Form::submit('Update',['class'=>'btn btn-primary']) !!}
                         </div>
@@ -112,12 +110,11 @@
                             </div>
 
                         </div>
-                        @if($car->vehicle_type == "Digger Vehicle")
                         <div class="form-group">
-                            <label class="form-label">Service Hours</label>
-                            {!! Form::text('service_hours',null,['class'=>'form-control']) !!}
+                            <label class="form-label">Main colour</label>
+                            {!! Form::text('main_colour',null,['class'=>'form-control']) !!}
                         </div>
-                        @endif
+                        
 
                     </div>
                     <div class="col-md-6 col-lg-4">
@@ -136,15 +133,18 @@
                         <div class="form-group">
                             <label class="form-label">Vin</label>
                             {!! Form::text('vin',null,['class'=>'form-control']) !!}
+                        </div>                        
+
+                        @if($car->vehicle_type == "Digger Vehicle")
+                        <div class="form-group">
+                            <label class="form-label">Service Hours<span class="form-required">*</span></label>
+                            {!! Form::text('service_hours',null,['class'=>'form-control', 'required']) !!}
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Engine no</label>
-                            {!! Form::text('engine_no',null,['class'=>'form-control']) !!}
+                            <label class="form-label">Hours<span class="form-required">*</span></label>
+                            {!! Form::text('hours',null,['class'=>'form-control', 'required']) !!}
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Main colour</label>
-                            {!! Form::text('main_colour',null,['class'=>'form-control']) !!}
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

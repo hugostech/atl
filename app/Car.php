@@ -21,7 +21,7 @@ class Car extends Model
 
     public function needService(){
         if ($this->vehicle_type == "Digger Vehicle") {
-            $reminder = $this->hours - $this->service_hours;
+            $reminder = $this->service_hours - $this->hours;
             if (!empty($reminder)) {
                 return $reminder;
             }else{
