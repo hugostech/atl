@@ -22,6 +22,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/update/{mark}','PublicController@updateOdometer')->name('sharing_url');
 Route::post('/update/{mark}','PublicController@saveOdometer')->name('save_odometer');
 
+Route::prefix('user')->middleware(['web','auth'])->group(function (){
+    Route::get('list','UserController@list')->name('user_list');
+    Route::get('new','UserController@newCar')->name('user_new');
+});
 
 Route::prefix('car')->middleware(['web','auth'])->group(function (){
     Route::get('list','CarController@list')->name('car_list');
