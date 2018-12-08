@@ -29,7 +29,7 @@
                                 <div>{{$user->email}}</div>
                             </td>
                             <td>
-                                hit
+                                hit..
                             </td>
                             
                             <td class="text-center">
@@ -37,7 +37,7 @@
                                     <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a href="{{route('car_edit',['id'=>$user->id])}}" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit </a>
-                                        <a href="{{route('car_delete',['id'=>$user->id])}}" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete?')"><i class="dropdown-icon fe fe-delete"></i> Delete</a>
+                                        <a href="{{route('user_delete',['id'=>$user->id])}}" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete?')"><i class="dropdown-icon fe fe-delete"></i> Delete</a>
                                         </div>
                                 </div>
                             </td>

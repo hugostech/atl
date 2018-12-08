@@ -12,13 +12,7 @@ class UserController extends Controller
 {
     public function list(){
         $users = User::all();
-        if (empty(Input::get('company',null))){
-            $cars = Car::all();
-        }else{
-            $cars = Car::where('company',Input::get('company'))->get();
-        }
-
-        return view('user.index',compact('cars', 'users'));
+        return view('user.index',compact('users'));
     }
 
     public function getCarInfo(Request $request){
@@ -28,8 +22,8 @@ class UserController extends Controller
 
     }
 
-    public function newCar(){
-        return view('car.new');
+    public function newUser(){
+        return view('user.register');
     }
 
     public function newDigger(){
@@ -62,12 +56,12 @@ class UserController extends Controller
         return redirect()->route('car_edit',['id'=>$id])->with('update_success','Update Success');
     }
 
-    public function removeCar($id){
-        $car = Car::find($id);
-        if (!is_null($car)){
-            $car->delete();
+    public function removeUser($id){
+        $user = User::find($id);
+        if (!is_null($user)){
+            $user->delete();
         }
-        return redirect()->route('car_list')->with('success','Delete Success');
+        return redirect()->route('user_list')->with('success','Delete Success');
     }
 
     /**
