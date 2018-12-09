@@ -16,7 +16,12 @@ class UserController extends Controller
     }
 
     public function newUser(){
-        return view('user.register');
+        //return view('user.register');
+    }
+
+    public function editUser($id){
+        $user = User::find($id);
+        return view('auth.edit',compact('user'));
     }
 
     public function removeUser($id){
@@ -25,5 +30,10 @@ class UserController extends Controller
             $user->delete();
         }
         return redirect()->route('user_list')->with('success','Delete Success');
+    }
+
+    public function updateUser($id,Request $request){        
+        Car::find($id)->update($request->all());
+        return redirect()->route('user_edit',['id'=>$id])->with('update_success','Update Success');
     }
 }

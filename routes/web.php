@@ -25,7 +25,9 @@ Route::post('/update/{mark}','PublicController@saveOdometer')->name('save_odomet
 Route::prefix('user')->middleware(['web','auth'])->group(function (){
     Route::get('list','UserController@list')->name('user_list');
     Route::get('new','UserController@newUser')->name('user_new');
+    Route::get('/{id}/edit','UserController@editUser')->name('user_edit');
     Route::get('/{id}/delete','UserController@removeUser')->name('user_delete');
+    Route::post('/{id}/edit','UserController@updateUser')->name('user_update');
     Route::post('create','UserController@saveCar')->name('user_create');
 });
 
