@@ -29,8 +29,12 @@ class UserController extends Controller
     }
 
     public function editUser($id){
+        $is_admin = true;
+        if (!empty(Auth::user()->company)) {
+            $is_admin = false;
+        }
         $user = User::find($id);
-        return view('auth.edit',compact('user'));
+        return view('auth.edit',compact('user', 'is_admin'));
     }
 
     public function removeUser($id){

@@ -74,8 +74,11 @@
 
                             <div class="col-md-6">
                                 <!-- <input id="company" type="text" class="form-control{{ $errors->has('company') ? ' is-invalid' : '' }}" name="company" value="{{ old('company') }}" autofocus> -->
-
-                                {!! Form::select('company', config('car.company',[]), $user->company, ['class'=>'form-control', 'placeholder'=>'Select Company']) !!}
+                                @if ($is_admin)
+                                    {!! Form::select('company', config('car.company',[]), $user->company, ['class'=>'form-control', 'placeholder'=>'Select Company']) !!}
+                                @else
+                                    {!! Form::select('company', [$user->company => $user->company], $user->company, ['class'=>'form-control']) !!}
+                                @endif
 
                                 @if ($errors->has('company'))
                                     <span class="invalid-feedback" role="alert">
