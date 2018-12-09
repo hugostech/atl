@@ -7,11 +7,20 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
+use Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function list(){
-        $users = User::all();
+        $logged_user = Auth::user();
+        if (empty($logged_user->company)) {
+            $users = User::all();
+        }
+        else {
+            $users = User::where('id', $logged_user->id)->get();
+        }
+        
         return view('user.index',compact('users'));
     }
 
@@ -32,8 +41,14 @@ class UserController extends Controller
         return redirect()->route('user_list')->with('success','Delete Success');
     }
 
-    public function updateUser($id,Request $request){        
-        User::find($id)->update($request->all());
+    public function updateUser($id,Request $request){            
+        $data = $request->all();
+        User::find($id)->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'company' => $data['company'],
+        ]);
         return redirect()->route('user_edit',['id'=>$id])->with('update_success','Update Success');
     }
 }

@@ -75,7 +75,7 @@
                             <div class="col-md-6">
                                 <!-- <input id="company" type="text" class="form-control{{ $errors->has('company') ? ' is-invalid' : '' }}" name="company" value="{{ old('company') }}" autofocus> -->
 
-                                {!! Form::select('company',[$user->company],null, ['class'=>'form-control']) !!}
+                                {!! Form::select('company', config('car.company',[]), $user->company, ['class'=>'form-control', 'placeholder'=>'Select Company']) !!}
 
                                 @if ($errors->has('company'))
                                     <span class="invalid-feedback" role="alert">
