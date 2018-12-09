@@ -16,7 +16,7 @@
                         <tr>                          
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Is Admin</th>
+                            <th>Company</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -29,7 +29,7 @@
                                 <div>{{$user->email}}</div>
                             </td>
                             <td>
-                                hit..
+                                <div>{{$user->company}}</div>
                             </td>
                             
                             <td class="text-center">
