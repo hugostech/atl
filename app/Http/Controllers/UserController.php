@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     public function updateUser($id,Request $request){        
-        Car::find($id)->update($request->all());
+        User::find($id)->update($request->all());
         return redirect()->route('user_edit',['id'=>$id])->with('update_success','Update Success');
     }
 }
