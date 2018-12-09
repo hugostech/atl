@@ -142,7 +142,7 @@
                                 <a href="javascript:void(0)" class="nav-link text-capitalize" data-toggle="dropdown"><i class="fe fe-box"></i> User</a>
                                 <div class="dropdown-menu dropdown-menu-arrow">
                                     <a href="{{route('user_list')}}" class="dropdown-item text-capitalize">List Users</a>
-                                    <a href="{{route('user_new')}}" class="dropdown-item text-capitalize">Add New User</a>
+                                    <a href="{{route('register')}}" class="dropdown-item text-capitalize">Add New User</a>
                                 </div>
                             </li>
 
