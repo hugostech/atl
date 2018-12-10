@@ -105,7 +105,16 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="form-group">
                             <label class="form-label">Company <span class="form-required">*</span></label>
-                            {!! Form::select('company',config('car.company',[]),null,['class'=>'form-control','placeholder'=>'Select Company', 'required']) !!}
+                            @if (\Illuminate\Support\Facades\Auth::user()->company == "")
+                                {!! Form::select('company',config('car.company',[]),null,['class'=>'form-control','placeholder'=>'Select Company', 'required']) !!}
+                            @else
+                                {!! Form::select('company',
+                                    [\Illuminate\Support\Facades\Auth::user()->company => \Illuminate\Support\Facades\Auth::user()->company],
+                                    \Illuminate\Support\Facades\Auth::user()->company,
+                                    ['class'=>'form-control', 'required']
+                                ) !!}
+                            @endif
+                            
                         </div>
                         <div class="form-group">
                             <label class="form-label">Make</label>
