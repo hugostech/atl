@@ -6,16 +6,23 @@ use App\Car;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
+use Auth;
 
 class CarController extends Controller
 {
     public function list(){
-        if (empty(Input::get('company',null))){
-            $cars = Car::all();
-        }else{
-            $cars = Car::where('company',Input::get('company'))->get();
+        $user = Auth::user();
+        if (empty($user->company)) { //Admin user's company is empty
+            if (empty(Input::get('company',null))){
+                $cars = Car::all();
+            }else{
+                $cars = Car::where('company',Input::get('company'))->get();
+            }
+        } 
+        else { // normal user            
+            $cars = Car::where('company', $user->company)->get();            
         }
-
+        
         return view('car.index',compact('cars'));
     }
 
