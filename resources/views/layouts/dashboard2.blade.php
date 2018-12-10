@@ -147,8 +147,11 @@
                             </li>
 
                             <li class="nav-item">
-                                @component('components.company_filter')
-                                @endcomponent
+                                <!-- display company filter only for the admin user -->
+                                @if (\Illuminate\Support\Facades\Auth::user()->company == "")
+                                    @component('components.company_filter')
+                                    @endcomponent
+                                @endif
                             </li>
 
                         </ul>
