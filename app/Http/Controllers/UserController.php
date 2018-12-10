@@ -47,12 +47,15 @@ class UserController extends Controller
 
     public function updateUser($id,Request $request){            
         $data = $request->all();
-        User::find($id)->update([
+        $update = [
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
             'company' => $data['company'],
-        ]);
+        ];
+        if ($data['old_password'] != sha1($data['password'])) {
+            $update['password'] = Hash::make($data['password']);
+        }
+        User::find($id)->update($update);
         return redirect()->route('user_edit',['id'=>$id])->with('update_success','Update Success');
     }
 }
