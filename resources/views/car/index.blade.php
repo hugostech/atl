@@ -96,6 +96,11 @@
             <div class="modal-body">
                 <label class="form-label" id="url_label">Loading...</label>
             </div>
+
+            <div class="text-center" id="qr_code">
+                {!! QrCode::generate('Welcome to kerneldev.com!'); !!}
+            </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>

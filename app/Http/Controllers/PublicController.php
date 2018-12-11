@@ -16,6 +16,10 @@ class PublicController extends Controller
         }
     }
 
+    // public function getQRCode($url) {
+    //     return "hit";
+    // }
+
     public function saveOdometer($mark, Request $request){
         $this->validate($request, [
             'odometer_reading'=>'required',
