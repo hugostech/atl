@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/update/{mark}','PublicController@updateOdometer')->name('sharing_url');
 Route::post('/update/{mark}','PublicController@saveOdometer')->name('save_odometer');
-// Route::get('/qr_code/{url}','PublicController@getQRCode')->name('qr_code');
+Route::get('/qr_code/{mark}','PublicController@getQRCode')->name('qr_code');
 
 Route::prefix('user')->middleware(['web','auth'])->group(function (){
     Route::get('list','UserController@list')->name('user_list');

@@ -25,6 +25,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        {{ Form::hidden('domain', Request::root() ) }}
                         @foreach($cars as $car)
                         <tr>
                             <td class="text-center">
@@ -61,6 +62,7 @@
                             <td class="text-center">
                                 <div>{{$car->tyreinfo}}</div>
                             </td>
+                            
                             <td class="text-center">
                                 <div class="item-action dropdown">
                                     <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
@@ -68,7 +70,7 @@
                                         <a href="{{route('car_edit',['id'=>$car->id])}}" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit </a>
                                         <a href="{{route('car_delete',['id'=>$car->id])}}" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete?')"><i class="dropdown-icon fe fe-delete"></i> Delete</a>
                                         <div class="dropdown-divider"></div>
-                                        <a href="javascript:void(0)" onclick="showlink('{{route('sharing_url',['mark'=>$car->sharing_mark])}}')" class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
+                                        <a href="javascript:void(0)" onclick="showlink(this.id, '{{route('sharing_url',['mark'=>$car->sharing_mark])}}')" id="{{$car->sharing_mark}}" class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
                                     </div>
                                 </div>
                             </td>
@@ -98,7 +100,7 @@
             </div>
 
             <div class="text-center" id="qr_code">
-                {!! QrCode::generate('Welcome to kerneldev.com!'); !!}
+            
             </div>
 
             <div class="modal-footer">
@@ -109,8 +111,19 @@
 </div>
 
 <script>
-    function showlink(url) {
-        $('#url_label').html(url)
+    function showlink(sharing_mark, url) {
+        $('#url_label').html(url);
+
+        domain = $('[name="domain"]').val();
+        if (sharing_mark != "") {
+            $.ajax({
+                type:'GET',            
+                url:domain + "/qr_code/" + sharing_mark,
+                success:function(data){
+                    $('#qr_code').html(data);
+                }
+            });
+        }        
     }
 </script>
 @endsection

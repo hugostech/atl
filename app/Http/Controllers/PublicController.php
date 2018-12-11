@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Car;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PublicController extends Controller
 {
@@ -16,9 +17,10 @@ class PublicController extends Controller
         }
     }
 
-    // public function getQRCode($url) {
-    //     return "hit";
-    // }
+    public function getQRCode($mark) {
+        $url = route('sharing_url',['mark'=>$mark]);
+        return QrCode::size(300)->generate($url);
+    }
 
     public function saveOdometer($mark, Request $request){
         $this->validate($request, [
