@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    @if ($is_admin)
+                    @if (\Illuminate\Support\Facades\Auth::user()->company == "")
                         <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
                             @csrf
 
