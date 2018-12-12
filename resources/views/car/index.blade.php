@@ -70,7 +70,7 @@
                                         <a href="{{route('car_edit',['id'=>$car->id])}}" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit </a>
                                         <a href="{{route('car_delete',['id'=>$car->id])}}" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete?')"><i class="dropdown-icon fe fe-delete"></i> Delete</a>
                                         <div class="dropdown-divider"></div>
-                                        <a href="javascript:void(0)" onclick="showlink(this.id, '{{route('sharing_url',['mark'=>$car->sharing_mark])}}')" id="{{$car->sharing_mark}}" class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
+                                        <a href="javascript:void(0)" onclick="showlink(this, '{{route('sharing_url',['mark'=>$car->sharing_mark])}}')" id="{{$car->sharing_mark}}" data-plate="{{$car->plate}}" class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
                                     </div>
                                 </div>
                             </td>
@@ -112,22 +112,27 @@
 </div>
 
 <script>
-    function showlink(sharing_mark, url) {
+    function showlink(obj, url) {
         $('#url_label').html(url);
 
+        var plate = $(obj).attr("data-plate");
+        var sharing_mark = $(obj).attr("id");
         domain = $('[name="domain"]').val();
-        $qr_code_url = domain + "/qr_code/" + sharing_mark;
-        var img_qr_code = "<img src='" + $qr_code_url + "' title='" + $qr_code_url + "' />";        
+
+        var qr_code_url = domain + "/qr_code/" + sharing_mark;
+        var img_qr_code = "<img src='" + qr_code_url + "' title='" + qr_code_url + "' />";        
         $('#qr_code').html(img_qr_code);   
-        $('#download').attr('name', $qr_code_url);    
+        $('#download').attr('data-qr_code_url', qr_code_url);  
+        $('#download').attr('data-plate', plate);   
     }
     function downloadQRCode(obj) {
-        url = obj.name;
+        url = $(obj).attr("data-qr_code_url");
+        plate = $(obj).attr("data-plate");
         download_image_name = url.split("qr_code/");
 
         var a = $("<a>")
             .attr("href", url)
-            .attr("download", download_image_name[1] + ".png")
+            .attr("download", plate + ".png")
             .appendTo("body");
 
         a[0].click();
