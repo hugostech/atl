@@ -104,7 +104,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" id="download" name="" onclick="downloadQRCode(this)" data-dismiss="modal">Download QR Code</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                
             </div>
         </div>
     </div>
@@ -115,15 +116,22 @@
         $('#url_label').html(url);
 
         domain = $('[name="domain"]').val();
-        if (sharing_mark != "") {
-            $.ajax({
-                type:'GET',            
-                url:domain + "/qr_code/" + sharing_mark,
-                success:function(data){
-                    $('#qr_code').html(data);
-                }
-            });
-        }        
+        $qr_code_url = domain + "/qr_code/" + sharing_mark;
+        var img_qr_code = "<img src='" + $qr_code_url + "' title='" + $qr_code_url + "' />";        
+        $('#qr_code').html(img_qr_code);   
+        $('#download').attr('name', $qr_code_url);    
+    }
+    function downloadQRCode(obj) {
+        url = obj.name;
+        download_image_name = url.split("qr_code/");
+
+        var a = $("<a>")
+            .attr("href", url)
+            .attr("download", download_image_name[1] + ".png")
+            .appendTo("body");
+
+        a[0].click();
+        a.remove();
     }
 </script>
 @endsection

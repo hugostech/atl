@@ -19,7 +19,15 @@ class PublicController extends Controller
 
     public function getQRCode($mark) {
         $url = route('sharing_url',['mark'=>$mark]);
-        return QrCode::size(300)->generate($url);
+
+        $pngImage = QrCode::format('png')
+                    ->size(300)->errorCorrection('H')
+                    ->generate($url);
+
+        return response($pngImage)->header('Content-type','image/png');
+
+        // $url = route('sharing_url',['mark'=>$mark]);
+        // return QrCode::size(300)->generate($url);
     }
 
     public function saveOdometer($mark, Request $request){
