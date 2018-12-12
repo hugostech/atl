@@ -27,7 +27,7 @@ class DriverController extends Controller
     }
 
     public function newDriver(){
-        return view('car.new');
+        return view('driver.new');
     }
 
     public function saveDriver(Request $request){

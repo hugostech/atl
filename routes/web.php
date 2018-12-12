@@ -25,7 +25,8 @@ Route::get('/qr_code/{mark}','PublicController@getQRCode')->name('qr_code');
 
 Route::prefix('driver')->middleware(['web','auth'])->group(function (){
     Route::get('list','CarController@list')->name('driver_list');
-    Route::get('new','CarController@newCar')->name('driver_new');
+    Route::get('new','DriverController@newDriver')->name('driver_new');
+    Route::post('create','DriverController@saveDriver')->name('driver_create');
 });
 
 Route::prefix('user')->middleware(['web','auth'])->group(function (){
