@@ -147,6 +147,14 @@
                             </li>
 
                             <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link text-capitalize" data-toggle="dropdown"><i class="fe fe-box"></i> Driver</a>
+                                <div class="dropdown-menu dropdown-menu-arrow">
+                                    <a href="{{route('driver_list')}}" class="dropdown-item text-capitalize">List Drivers</a>
+                                    <a href="{{route('driver_new')}}" class="dropdown-item text-capitalize">Add New Driver</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item">
                                 <!-- display company filter only for the admin user -->
                                 @if (\Illuminate\Support\Facades\Auth::user()->company == "")
                                     @component('components.company_filter')

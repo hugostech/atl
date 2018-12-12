@@ -23,6 +23,11 @@ Route::get('/update/{mark}','PublicController@updateOdometer')->name('sharing_ur
 Route::post('/update/{mark}','PublicController@saveOdometer')->name('save_odometer');
 Route::get('/qr_code/{mark}','PublicController@getQRCode')->name('qr_code');
 
+Route::prefix('driver')->middleware(['web','auth'])->group(function (){
+    Route::get('list','CarController@list')->name('driver_list');
+    Route::get('new','CarController@newCar')->name('driver_new');
+});
+
 Route::prefix('user')->middleware(['web','auth'])->group(function (){
     Route::get('list','UserController@list')->name('user_list');
     Route::get('new','UserController@newUser')->name('user_new');
@@ -42,5 +47,4 @@ Route::prefix('car')->middleware(['web','auth'])->group(function (){
     Route::get('/{id}/delete','CarController@removeCar')->name('car_delete');
     Route::post('/{id}/edit','CarController@updateCar')->name('car_update');
     Route::post('create','CarController@saveCar')->name('car_create');
-
 });
