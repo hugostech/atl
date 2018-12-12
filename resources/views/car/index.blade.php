@@ -128,7 +128,6 @@
     function downloadQRCode(obj) {
         url = $(obj).attr("data-qr_code_url");
         plate = $(obj).attr("data-plate");
-        download_image_name = url.split("qr_code/");
 
         var a = $("<a>")
             .attr("href", url)
