@@ -52,6 +52,7 @@
         <label class="form-label">Hubo Reading<span class="form-required">*</span></label>
         {!! Form::number('hubmeter_reading',null,['class'=>'form-control','required']) !!}
     </div>
+    <!-- @todo if user select problem here we need to send an email  -->
     <div class="form-group">
         <label class="form-label">Body: </label>
         Fine {{ Form::radio('body', 'fine' , true) }}
