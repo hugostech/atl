@@ -1,10 +1,6 @@
 @extends('layouts.dashboard')
 @section('page')
-    {!! Form::open() !!}    
-    <div class="form-group">
-        <label class="form-label">Your Name<span class="form-required">*</span></label>
-        {!! Form::text('name',null,['class'=>'form-control','required']) !!}
-    </div>
+    {!! Form::open() !!}
     <div class="form-group">
         <label class="form-label">Driver<span class="form-required">*</span></label>
         {!! Form::select('driver_id', $drivers, null, ['class'=>'form-control','placeholder'=>'Select Driver','required']) !!}
@@ -20,16 +16,16 @@
     <div class="form-group">
         <label class="form-label">COF Due Date: </label>
         {{\Carbon\Carbon::parse($car->cof)->format('d M Y')}}
+        {!! Form::hidden('cof_due_date', \Carbon\Carbon::parse($car->cof)->format('d M Y') ) !!}
     </div>
     <div class="form-group">
         <label class="form-label">REGO Due Date<span class="form-required">*</span></label>
-        <!-- REGO due date saves as cof due date -->
-        {!! Form::date('cof_due_date',\Carbon\Carbon::now(),['class'=>"form-control",'required']) !!}
+        {!! Form::date('rego_due_date',\Carbon\Carbon::parse($car->reg)->format('Y-m-d'),['class'=>"form-control",'required']) !!}
     </div>
     <div class="form-group">
         <label class="form-label">Next Service</label>
         <div class="input-group">
-            {!! Form::number('cof',null,['class'=>"form-control"]) !!}
+            {!! Form::number('next_service',$car->service,['class'=>"form-control"]) !!}
             <span class="input-group-append">
                 <span class="input-group-text">KM</span>
             </span>

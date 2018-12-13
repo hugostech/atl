@@ -34,8 +34,7 @@ class PublicController extends Controller
 
     public function saveOdometer($mark, Request $request){
         $this->validate($request, [
-            'odometer_reading'=>'required',
-            'name'=>'required'
+            'odometer_reading'=>'required'
         ]);
         $car = Car::where('sharing_mark',$mark)->first();
         if (is_null($car)){
@@ -43,13 +42,13 @@ class PublicController extends Controller
         }else{
             $car->mileage_histories()->create([
                 'odometer_reading'=>$request->get('odometer_reading'),
-                'editor'=>$request->get('name'),
                 'car_id'=>$car->id,
                 'driver_id'=>$request->get('driver_id'),
                 'date'=>$request->get('date'),
                 'group_code'=>$request->get('group_code'),
                 'cof_due_date'=>$request->get('cof_due_date'),
-                'cof'=>$request->get('cof'),
+                'rego_due_date'=>$request->get('rego_due_date'),
+                'next_service'=>$request->get('next_service'),
                 'total_fuel'=>$request->get('total_fuel'),                
                 'hubmeter_reading'=>$request->get('hubmeter_reading'),
                 'body'=>$request->get('body'),
