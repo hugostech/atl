@@ -13,12 +13,16 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function list(){
-        $logged_user = Auth::user();
-        if (empty($logged_user->company)) {
-            $users = User::all();
-        }
-        else {
-            $users = User::where('id', $logged_user->id)->get();
+        $user = Auth::user();
+        if (empty($user->company)) { //Admin user's company is empty
+            if (empty(Input::get('company',null))){
+                $users = User::all();
+            }else{
+                $users = User::where('company',Input::get('company'))->get();
+            }
+        } 
+        else { // normal user            
+            $users = User::where('company', $user->company)->get();            
         }
         
         return view('user.index',compact('users'));
