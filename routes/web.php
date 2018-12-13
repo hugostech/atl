@@ -24,9 +24,12 @@ Route::post('/update/{mark}','PublicController@saveOdometer')->name('save_odomet
 Route::get('/qr_code/{mark}','PublicController@getQRCode')->name('qr_code');
 
 Route::prefix('driver')->middleware(['web','auth'])->group(function (){
-    Route::get('list','CarController@list')->name('driver_list');
+    Route::get('list','DriverController@list')->name('driver_list');
     Route::get('new','DriverController@newDriver')->name('driver_new');
     Route::post('create','DriverController@saveDriver')->name('driver_create');
+    Route::get('/{id}/delete','DriverController@removeDriver')->name('driver_delete');
+    Route::get('/{id}/edit','DriverController@editDriver')->name('driver_edit');
+    Route::post('/{id}/edit','DriverController@updateDriver')->name('driver_update');
 });
 
 Route::prefix('user')->middleware(['web','auth'])->group(function (){

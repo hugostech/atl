@@ -14,20 +14,25 @@ class DriverController extends Controller
         $user = Auth::user();
         if (empty($user->company)) { //Admin user's company is empty
             if (empty(Input::get('company',null))){
-                $driver = Driver::all();
+                $drivers = Driver::all();
             }else{
-                $driver = Driver::where('company',Input::get('company'))->get();
+                $drivers = Driver::where('company',Input::get('company'))->get();
             }
         } 
         else { // normal user            
-            $driver = Driver::where('company', $user->company)->get();            
+            $drivers = Driver::where('company', $user->company)->get();            
         }
         
-        return view('car.index',compact('cars'));
+        return view('driver.index',compact('drivers'));
     }
 
     public function newDriver(){
         return view('driver.new');
+    }
+
+    public function editDriver($id){
+        $driver = Driver::find($id);
+        return view('driver.edit',compact('driver'));
     }
 
     public function saveDriver(Request $request){
@@ -38,11 +43,6 @@ class DriverController extends Controller
         $driver = Driver::create($request->all());
         $driver->save();
         return redirect()->route('driver_list');
-    }
-
-    public function editDriver($id){
-        $driver = Driver::find($id);
-        return view('driver.edit',compact('driver'));
     }
 
     public function updateDriver($id,Request $request){
