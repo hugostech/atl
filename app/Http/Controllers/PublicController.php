@@ -44,7 +44,17 @@ class PublicController extends Controller
             $car->mileage_histories()->create([
                 'odometer_reading'=>$request->get('odometer_reading'),
                 'editor'=>$request->get('name'),
-                'car_id'=>$car->id
+                'car_id'=>$car->id,
+                'driver_id'=>$request->get('driver_id'),
+                'date'=>$request->get('date'),
+                'group_code'=>$request->get('group_code'),
+                'cof_due_date'=>$request->get('cof_due_date'),
+                'cof'=>$request->get('cof'),
+                'total_fuel'=>$request->get('total_fuel'),                
+                'hubmeter_reading'=>$request->get('hubmeter_reading'),
+                'body'=>$request->get('body'),
+                'mechanics'=>$request->get('mechanics'),
+                'hygiene'=>$request->get('hygiene')
             ]);
             $car->odometer_reading = $request->get('odometer_reading');
             $car->save();
