@@ -1,17 +1,76 @@
 @extends('layouts.dashboard')
 @section('page')
-    {!! Form::open() !!}
-    <div class="form-group">
-        <label class="form-label">Odometer Reading</label>
-        {!! Form::number('odometer_reading',null,['class'=>'form-control','required']) !!}
-    </div>
+    {!! Form::open() !!}    
     <div class="form-group">
         <label class="form-label">Your Name</label>
         {!! Form::text('name',null,['class'=>'form-control','required']) !!}
     </div>
     <div class="form-group">
-        {!! Form::submit('Save',['class'=>'btn btn-primary']) !!}
+        <label class="form-label">Driver</label>
+        {!! Form::select('driver', $drivers, null, ['class'=>'form-control','placeholder'=>'Select Driver','required']) !!}
     </div>
+    <div class="form-group">
+    <label class="form-label">Date</label>
+        {!! Form::date('date',\Carbon\Carbon::now(),['class'=>"form-control",'required']) !!}
+    </div>
+    <div class="form-group">
+        <label class="form-label">Group Code</label>
+        {!! Form::text('group_code',null,['class'=>'form-control','required']) !!}
+    </div>
+    <div class="form-group">
+        <label class="form-label">COF Due Date: </label>
+        {{\Carbon\Carbon::parse($car->cof)->format('d M Y')}}
+    </div>
+    <div class="form-group">
+        <label class="form-label">REGO Due Date</label>
+        {!! Form::date('cof_due_date',\Carbon\Carbon::now(),['class'=>"form-control",'required']) !!}
+    </div>
+    <div class="form-group">
+        <label class="form-label">Next Service</label>
+        <div class="input-group">
+            {!! Form::number('cof',null,['class'=>"form-control",'required']) !!}
+            <span class="input-group-append">
+                <span class="input-group-text">KM</span>
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Total Fuel of This Group</label>
+        <div class="input-group">
+            {!! Form::number('total_fuel',null,['class'=>"form-control"]) !!}
+            <span class="input-group-append">
+                <span class="input-group-text">L</span>
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Odometer Reading</label>
+        {!! Form::number('odometer_reading',null,['class'=>'form-control','required']) !!}
+    </div>
+    <div class="form-group">
+        <label class="form-label">Hubo Reading</label>
+        {!! Form::number('hubmeter_reading',null,['class'=>'form-control','required']) !!}
+    </div>
+    <div class="form-group">
+        <label class="form-label">Body: </label>
+        Fine {{ Form::radio('body', 'fine' , true) }}
+        Problem {{ Form::radio('body', 'problem' , false) }}
+    </div>
+    <div class="form-group">
+        <label class="form-label">Mechanics: </label>
+        Fine {{ Form::radio('mechanics', 'fine' , true) }}
+        Problem {{ Form::radio('mechanics', 'problem' , false) }}
+    </div>
+    <div class="form-group">
+        <label class="form-label">Hygiene: </label>
+        Fine {{ Form::radio('hygiene', 'fine' , true) }}
+        Problem {{ Form::radio('hygiene', 'problem' , false) }}
+    </div>
+
+
+    <div class="form-group">
+        {!! Form::submit('Save',['class'=>'btn btn-primary']) !!}
+    </div>    
     {!! Form::close() !!}
 
 @endsection

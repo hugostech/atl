@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Car;
+use App\Driver;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -13,7 +14,8 @@ class PublicController extends Controller
         if (is_null($car)){
             abort(404);
         }else{
-            return view('car.updatemeter');
+            $drivers = Driver::where('company',$car->company)->pluck('name', 'id')->all(); // this is for driver dropdown
+            return view('car.updatemeter',compact('drivers', 'car'));
         }
     }
 
