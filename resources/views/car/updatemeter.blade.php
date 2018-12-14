@@ -1,6 +1,11 @@
 @extends('layouts.dashboard')
+@section('title', 'Page Title')
 @section('page')
     {!! Form::open() !!}
+    <div class="form-group">
+        <label class="form-label">Car:</label>
+        {{$car->plate}}
+    </div>
     <div class="form-group">
         <label class="form-label">Driver<span class="form-required">*</span></label>
         {!! Form::select('driver_id', $drivers, null, ['class'=>'form-control','placeholder'=>'Select Driver','required']) !!}
@@ -19,13 +24,13 @@
         {!! Form::hidden('cof_due_date', \Carbon\Carbon::parse($car->cof)->format('Y-m-d') ) !!}
     </div>
     <div class="form-group">
-        <label class="form-label">REGO Due Date<span class="form-required">*</span></label>
-        {!! Form::date('rego_due_date',\Carbon\Carbon::parse($car->reg)->format('Y-m-d'),['class'=>"form-control",'required']) !!}
+        <label class="form-label">REGO Due Date</label>
+        {!! Form::date('rego_due_date',\Carbon\Carbon::parse($car->reg)->format('Y-m-d'),['class'=>"form-control",'readonly']) !!}
     </div>
     <div class="form-group">
         <label class="form-label">Next Service</label>
         <div class="input-group">
-            {!! Form::number('next_service',$car->service,['class'=>"form-control"]) !!}
+            {!! Form::number('next_service',$car->service,['class'=>"form-control", 'readonly']) !!}
             <span class="input-group-append">
                 <span class="input-group-text">KM</span>
             </span>
@@ -42,11 +47,21 @@
     </div>
     <div class="form-group">
         <label class="form-label">Odometer Reading<span class="form-required">*</span></label>
-        {!! Form::number('odometer_reading',null,['class'=>'form-control','required']) !!}
+        <div class="input-group">
+            {!! Form::number('odometer_reading',null,['class'=>'form-control','required']) !!}
+            <span class="input-group-append">
+                <span class="input-group-text">KM</span>
+            </span>
+        </div>
     </div>
     <div class="form-group">
         <label class="form-label">Hubo Reading<span class="form-required">*</span></label>
-        {!! Form::number('hubmeter_reading',null,['class'=>'form-control','required']) !!}
+        <div class="input-group">
+            {!! Form::number('hubmeter_reading',null,['class'=>'form-control','required']) !!}
+            <span class="input-group-append">
+                <span class="input-group-text">KM</span>
+            </span>
+        </div>
     </div>
     <!-- @todo if user select problem here we need to send an email  -->
     <div class="form-group">

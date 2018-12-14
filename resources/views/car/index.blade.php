@@ -129,9 +129,9 @@
                         <th scope="col">COF Due Date</th>
                         <th scope="col">REGO Due Date</th>
                         <th scope="col">Next Service</th>
-                        <th scope="col">Total Fuel</th>
-                        <th scope="col">Odometer</th>
-                        <th scope="col">Hubo</th>
+                        <th scope="col">Total Fuel(L)</th>
+                        <th scope="col">Odometer(Km)</th>
+                        <th scope="col">Hubo(Km)</th>
                         <th scope="col">Body</th>
                         <th scope="col">Mechanics</th>
                         <th scope="col">Hygiene</th>
@@ -168,9 +168,9 @@
 
                     var row = "<tr>";
                     row += "<th scope='row'>"+ (index + 1) +"</th>";
-                    row += "<td>" + item.plate +"</td>";
+                    row += "<td>" + item.name +"</td>";
                     row += "<td>" + item.date +"</td>";
-                    row += "<td>" + item.group_code +"</td>";
+                    row += "<td class='text-uppercase'>" + item.group_code +"</td>";
                     row += "<td>" + item.cof_due_date +"</td>";
                     row += "<td>" + rego_due_date +"</td>";
                     row += "<td>" + next_service +"</td>";

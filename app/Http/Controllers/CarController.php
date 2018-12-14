@@ -30,8 +30,8 @@ class CarController extends Controller
 
     public function history($car_id){   
         $data = DB::table('mileage_histories')
-                ->join('cars', 'cars.id', '=', 'mileage_histories.car_id')
-                ->select('mileage_histories.*', 'cars.plate')
+                ->join('drivers', 'drivers.id', '=', 'mileage_histories.driver_id')
+                ->select('mileage_histories.*', 'drivers.name')
                 ->where('mileage_histories.car_id', $car_id)
                 ->orderBy('mileage_histories.updated_at', 'desc')
                 ->get();
