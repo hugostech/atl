@@ -71,6 +71,7 @@
                                         <a href="{{route('car_delete',['id'=>$car->id])}}" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete?')"><i class="dropdown-icon fe fe-delete"></i> Delete</a>
                                         <div class="dropdown-divider"></div>
                                         <a href="javascript:void(0)" onclick="showlink(this, '{{route('sharing_url',['mark'=>$car->sharing_mark])}}')" id="{{$car->sharing_mark}}" data-plate="{{$car->plate}}" class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
+                                        <a href="javascript:void(0)" onclick="showHistory('{{route('car_history',['id'=>$car->id])}}')" class="dropdown-item" data-toggle="modal" data-target="#history"><i class="dropdown-icon fe fe-link"></i> History</a>
                                     </div>
                                 </div>
                             </td>
@@ -111,7 +112,84 @@
     </div>
 </div>
 
+<div class="modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="history" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">History</h5>                
+            </div>
+            <div class="text-center" id='history_table_div'>
+                <table class="table" id="history_table">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Driver</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">GC</th>
+                        <th scope="col">COF Due Date</th>
+                        <th scope="col">REGO Due Date</th>
+                        <th scope="col">Next Service</th>
+                        <th scope="col">Total Fuel</th>
+                        <th scope="col">Odometer</th>
+                        <th scope="col">Hubo</th>
+                        <th scope="col">Body</th>
+                        <th scope="col">Mechanics</th>
+                        <th scope="col">Hygiene</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    function showHistory(url) {
+        $( ".modal-dialog" ).css( "maxWidth",'1200px');
+        $.ajax({
+            url: url,
+            type: "get",
+            data: '' ,
+            dataType: "json",
+            success: function (res) {
+                //console.log(res[0])
+                $("#history_table > tbody").html("");
+                jQuery.each(res, function(index, item) {
+                    var rego_due_date = item.rego_due_date != null ? item.rego_due_date : '';
+                    var next_service = item.next_service != null ? item.next_service : '';
+                    var total_fuel = item.total_fuel != null ? item.total_fuel : '';
+
+                    var row = "<tr>";
+                    row += "<th scope='row'>"+ (index + 1) +"</th>";
+                    row += "<td>" + item.plate +"</td>";
+                    row += "<td>" + item.date +"</td>";
+                    row += "<td>" + item.group_code +"</td>";
+                    row += "<td>" + item.cof_due_date +"</td>";
+                    row += "<td>" + rego_due_date +"</td>";
+                    row += "<td>" + next_service +"</td>";
+                    row += "<td>" + total_fuel +"</td>";
+                    row += "<td>" + item.odometer_reading +"</td>";
+                    row += "<td>" + item.hubmeter_reading +"</td>";
+                    row += "<td>" + item.body +"</td>";
+                    row += "<td>" + item.mechanics +"</td>";
+                    row += "<td>" + item.hygiene +"</td>";
+                    row += "</tr>";
+
+                    $("#history_table tbody").append(row);
+                });         
+                if (res.length == 0) {
+                    $('#history_table_div').html("<div class='text-danger'>No data found.</div>");
+                }      
+            }
+        });
+    }
     function showlink(obj, url) {
         $('#url_label').html(url);
 

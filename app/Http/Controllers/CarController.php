@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Car;
+use App\MileageHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class CarController extends Controller
 {
@@ -24,6 +26,16 @@ class CarController extends Controller
         }
         
         return view('car.index',compact('cars'));
+    }
+
+    public function history($car_id){   
+        $data = DB::table('mileage_histories')
+                ->join('cars', 'cars.id', '=', 'mileage_histories.car_id')
+                ->select('mileage_histories.*', 'cars.plate')
+                ->where('mileage_histories.car_id', $car_id)
+                ->orderBy('mileage_histories.updated_at', 'desc')
+                ->get();
+        return $data;
     }
 
     public function getCarInfo(Request $request){
