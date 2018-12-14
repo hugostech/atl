@@ -15,8 +15,8 @@
     </div>
     <div class="form-group">
         <label class="form-label">COF Due Date: </label>
-        {{\Carbon\Carbon::parse($car->cof)->format('d M Y')}}
-        {!! Form::hidden('cof_due_date', \Carbon\Carbon::parse($car->cof)->format('d M Y') ) !!}
+        {{\Carbon\Carbon::parse($car->cof)->format('Y-m-d')}}
+        {!! Form::hidden('cof_due_date', \Carbon\Carbon::parse($car->cof)->format('Y-m-d') ) !!}
     </div>
     <div class="form-group">
         <label class="form-label">REGO Due Date<span class="form-required">*</span></label>
