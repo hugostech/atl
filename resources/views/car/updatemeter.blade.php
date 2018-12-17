@@ -20,8 +20,7 @@
     </div>
     <div class="form-group">
         <label class="form-label">COF Due Date: </label>
-        {{\Carbon\Carbon::parse($car->cof)->format('d/m/Y')}}
-        {!! Form::hidden('cof_due_date', \Carbon\Carbon::parse($car->cof)->format('Y-m-d') ) !!}
+        {!! Form::date('cof_due_date', \Carbon\Carbon::parse($car->cof)->format('Y-m-d'),['class'=>"form-control"]) !!}
     </div>
     <div class="form-group">
         <label class="form-label">REGO Due Date</label>
@@ -30,7 +29,7 @@
     <div class="form-group">
         <label class="form-label">Next Service</label>
         <div class="input-group">
-            {!! Form::number('next_service',$car->service,['class'=>"form-control", 'readonly']) !!}
+            {!! Form::number('next_service',$car->service,['class'=>"form-control"]) !!}
             <span class="input-group-append">
                 <span class="input-group-text">KM</span>
             </span>
