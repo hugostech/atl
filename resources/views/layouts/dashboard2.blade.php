@@ -135,6 +135,7 @@
                                 <div class="dropdown-menu dropdown-menu-arrow">
                                     <a href="{{route('car_list')}}" class="dropdown-item text-capitalize">Vehicle List</a>
                                     <a href="{{route('car_new')}}" class="dropdown-item text-capitalize">Create Vehicle</a>
+                                    <a href="{{route('batch_edit')}}" class="dropdown-item text-capitalize">Vehicle/Batch Edit</a>
                                 </div>
                             </li>
 
