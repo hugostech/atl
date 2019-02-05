@@ -2,17 +2,17 @@
 
 @section('page')
 <div class="container">
-    <!-- @if(\Illuminate\Support\Facades\Session::has('success'))
-        <div class="alert alert-success">
-            <strong>Success!</strong> {{\Illuminate\Support\Facades\Session::get('success')}}
+        <div class="alert alert-success" id="msg" style="display:none" >
+            <strong>Success!</strong> 
         </div>
-    @endif -->
+    
     <div class="row row-cards row-deck">
         <div class="col-12">
             <div class="card">
                 <div class="table-responsive">
                     {!! Form::open(['route'=>'batch_save','method'=>'post','class'=>'card']) !!}
                         {!! Form::hidden('last_editor',\Illuminate\Support\Facades\Auth::user()->id) !!}
+                        <meta name="csrf-token" content="{{ csrf_token() }}">
                         <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
                             <thead>
                             <tr>
@@ -34,7 +34,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="text-uppercase">{{$car->plate}}<input type="hidden" name="plate[]" value="{{$car->plate}}" /> </div>
+                                    <div class="text-uppercase">{{$car->plate}}
+                                        <input type="hidden" name="plate[]" value="{{$car->plate}}" /> 
+                                        <input type="hidden" name="id[]" value="{{$car->id}}" />
+                                    </div>
                                     <div class="small text-muted">
                                         Registered: {{$car->year_of_manufacture}} {{strtoupper($car->main_colour)}} S: {{$car->no_of_seats}}
                                     </div>
@@ -73,8 +76,8 @@
                             </tr>
                             @endforeach
                             <tr>
-                                <td colspan="8">
-                                    <input type="button" name="submit" value="Submit" onclick="confirm_save(this,'{{route('car_history','')}}')" class="btn btn-primary" data-toggle="modal" data-target="#confirm" />
+                                <td colspan="8" class="text-center">
+                                    <input type="button" name="submit" value="Submit" onclick="confirm_save(this,'{{route('batch_save')}}')" class="btn btn-primary" data-toggle="modal" data-target="#confirm" />
                                 </td>
                             </tr>
                             </tbody>
@@ -112,7 +115,7 @@
 
             <div class="modal-footer">
                 <div>Are you sure? </div> 
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Yes. Save Please.</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="save()">Yes. Save Please.</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                
             </div>
         </div>
@@ -120,14 +123,18 @@
 </div>
 
 <script>    
+    var data = [];
+    var url = "";
     function confirm_save(obj, url){
-        alert(url)
         $("#confirm_table > tbody").html("");
         var x = 0;
+        this.url = url;
+        this.data = [];
+        var id = $("input[name='id[]']").map(function(){return $(this).val();}).get().toString().split(",");
         var hubemeter_reading = $("input[name='hubemeter_reading[]']").map(function(){return $(this).val();}).get().toString().split(",");
         var service = $("input[name='service[]']").map(function(){return $(this).val();}).get().toString().split(",");
         var odometer_reading = $("input[name='odometer_reading[]']").map(function(){return $(this).val();}).get().toString().split(",");
-
+        
         $('input[name^="plate"]').each(function() {
             var row = "<tr>";
             row += "<td>" + $(this).val() +"</td>";
@@ -138,8 +145,34 @@
 
             if (hubemeter_reading[x] != '' || service[x] != '' || odometer_reading[x] != '') {
                 $("#confirm_table tbody").append(row);
+
+                var item = {}
+                item['id'] = id[x];
+                item['hubemeter_reading'] = hubemeter_reading[x];
+                item['service'] = service[x];
+                item['odometer_reading'] = odometer_reading[x];
+
+                data.push(item);
             }            
             x++;
+        });
+        // console.log(data)
+    }
+
+    function save() {
+        // console.log(JSON.stringify(data))
+        $.ajax({
+            url: url,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "post",
+            data: JSON.stringify(data) ,
+            dataType: "json",
+            success: function (res) {
+                $("#msg").attr("style", "display:block");
+                $("#msg")[0].scrollIntoView();
+            }
         });
     }
       

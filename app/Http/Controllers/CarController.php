@@ -29,15 +29,11 @@ class CarController extends Controller
     }
 
     public function saveBatch(Request $request){
-        print_r("hit");
-        // $this->validate($request, [
-        //     'plate'=>'required|unique:cars'
-        // ]);
-        
-        // $car = Car::create($request->all());
-        // $car->sharing_mark = md5(Str::uuid());
-        // $car->save();
-        // return redirect()->route('car_list');
+        $datas = $request->json()->all();
+        foreach ($datas as $data) {
+            Car::find($data['id'])->update($data);
+        }
+        return json_encode("success");
     }
 
     public function list(){
