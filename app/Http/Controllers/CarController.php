@@ -28,6 +28,18 @@ class CarController extends Controller
         return view('car.bulk_edit',compact('cars'));
     }
 
+    public function saveBatch(Request $request){
+        print_r("hit");
+        // $this->validate($request, [
+        //     'plate'=>'required|unique:cars'
+        // ]);
+        
+        // $car = Car::create($request->all());
+        // $car->sharing_mark = md5(Str::uuid());
+        // $car->save();
+        // return redirect()->route('car_list');
+    }
+
     public function list(){
         $user = Auth::user();
         if (empty($user->company)) { //Admin user's company is empty
