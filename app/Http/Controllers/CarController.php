@@ -17,7 +17,7 @@ class CarController extends Controller
         if (empty($user->company)) { //Admin user's company is empty
             if (empty(Input::get('company',null))){
                 $cars = Car::all();
-            }else{
+            } else {
                 $cars = Car::where('company',Input::get('company'))->get();
             }
         } 
@@ -29,8 +29,10 @@ class CarController extends Controller
     }
 
     public function saveBatch(Request $request){
+        $user = Auth::user();
         $datas = $request->json()->all();
         foreach ($datas as $data) {
+            $data['last_editor'] = $user->id;
             Car::find($data['id'])->update($data);
         }
         return json_encode("success");

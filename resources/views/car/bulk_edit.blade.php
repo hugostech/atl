@@ -21,8 +21,8 @@
                                 <th>Hubmeter</th>
                                 <th>Service</th>
                                 <th>Odometer</th>
-                                <th class="text-center">Service</th>
-                                <th class="text-center">TYREINFO</th>
+                                <th>RUC</th>
+                                <th>COF</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -57,22 +57,29 @@
                                     </span>                                
                                 </td>
                                 <td>
-                                <div class="small text-muted">Current: {{$car->odometer_reading}}Km</div> 
+                                    <div class="small text-muted">Current: {{$car->odometer_reading}}Km</div> 
                                     <span class="input-group-append">
                                         <input type="text" name="odometer_reading[]" size="10" />
                                         <span class="input-group-text">KM</span>
                                     </span>
                                 </td>
 
-                                <td class="text-center">
-                                    @component('components.service',['car'=>$car])
-                                        N/A
-                                    @endcomponent
+                                <td>
+                                    <div class="small text-muted">Current: {{$car->ruc}}Km</div> 
+                                    <span class="input-group-append">
+                                        <input type="text" name="ruc[]" size="10" />
+                                        <span class="input-group-text">KM</span>
+                                    </span>
                                 </td>
-                                <td class="text-center">
-                                    <div>{{$car->tyreinfo}}</div>
-                                </td>
-                                
+
+                                <td>
+                                    @if (!empty($car->cof) )
+                                        <div class="small text-muted">Current: {{ date('d/m/Y', strtotime($car->cof)) }}</div> 
+                                    @else
+                                        <div class="small text-muted">Current: </div> 
+                                    @endif
+                                    {!! Form::date('cof[]',null,['class'=>"form-control"]) !!}
+                                </td>                                
                             </tr>
                             @endforeach
                             <tr>
@@ -103,8 +110,8 @@
                         <th scope="col">Hubmeter</th>
                         <th scope="col">Service</th>
                         <th scope="col">Odometer</th>
-                        <th scope="col">[temp]</th>
-                        <th scope="col">[temp]</th>
+                        <th scope="col">RUC</th>
+                        <th scope="col">COF</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -134,16 +141,25 @@
         var hubemeter_reading = $("input[name='hubemeter_reading[]']").map(function(){return $(this).val();}).get().toString().split(",");
         var service = $("input[name='service[]']").map(function(){return $(this).val();}).get().toString().split(",");
         var odometer_reading = $("input[name='odometer_reading[]']").map(function(){return $(this).val();}).get().toString().split(",");
-        
+        var ruc = $("input[name='ruc[]']").map(function(){return $(this).val();}).get().toString().split(",");
+        var cof = $("input[name='cof[]']").map(function(){return $(this).val();}).get().toString().split(",");
+
         $('input[name^="plate"]').each(function() {
             var row = "<tr>";
             row += "<td>" + $(this).val() +"</td>";
             row += "<td>" + hubemeter_reading[x] +"</td>";
             row += "<td>" + service[x] +"</td>";
             row += "<td>" + odometer_reading[x] +"</td>";
+            row += "<td>" + ruc[x] +"</td>";
+            row += "<td>" + cof[x] +"</td>";
             row += "</tr>";
 
-            if (hubemeter_reading[x] != '' || service[x] != '' || odometer_reading[x] != '') {
+            if (hubemeter_reading[x] != '' 
+                || service[x] != '' 
+                || odometer_reading[x] != ''
+                || ruc[x] != ''
+                || cof[x] != ''
+            ) {
                 $("#confirm_table tbody").append(row);
 
                 var item = {}
@@ -151,6 +167,8 @@
                 item['hubemeter_reading'] = hubemeter_reading[x];
                 item['service'] = service[x];
                 item['odometer_reading'] = odometer_reading[x];
+                item['ruc'] = ruc[x];
+                item['cof'] = cof[x];
 
                 data.push(item);
             }            
