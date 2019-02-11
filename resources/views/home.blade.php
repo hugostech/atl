@@ -168,13 +168,6 @@
                                 @else
                                     <span class="badge badge-danger">Setting Error</span>
                                 @endif
-
-                                {{--@if($car>0)--}}
-                                    {{--<span class="badge badge-success">Less Than 1000km</span>--}}
-                                {{--@else--}}
-                                    {{--<span class="badge badge-danger">Expired ({{$car}}km)</span>--}}
-                                {{--@endif--}}
-                                {{--<span class="badge badge-danger">Expired ({{$car}}km)</span>--}}
                             </td>
                         </tr>
                     @endforeach
