@@ -107,7 +107,7 @@
                     <thead>
                         <tr>
                         <th scope="col">Plate</th>
-                        <th scope="col">Hubmeter</th>
+                        <th scope="col">Hubometer</th>
                         <th scope="col">Service</th>
                         <th scope="col">Odometer</th>
                         <th scope="col">RUC</th>
