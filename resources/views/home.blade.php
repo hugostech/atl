@@ -159,10 +159,14 @@
                         <tr>
                             <td><a href="{{route('car_edit_by_plate',['plate'=>$plate])}}" class="text-uppercase">{{$plate}}</a></td>
                             <td class="text-right">
-                                @if($car>0)
+                                @if(is_numeric($car))
+                                    @if($car>0)
                                     <span class="badge badge-success">Less Than 1000km</span>
-                                @else
+                                    @else
                                     <span class="badge badge-danger">Expired ({{$car}}km)</span>
+                                    @endif
+                                @else
+                                    <span class="badge badge-danger">Setting Error</span>
                                 @endif
                             </td>
                         </tr>
