@@ -27,6 +27,15 @@
         {!! Form::date('rego_due_date',\Carbon\Carbon::parse($car->reg)->format('Y-m-d'),['class'=>"form-control",'readonly']) !!}
     </div>
     <div class="form-group">
+        <label class="form-label">RUC End At</label>
+        <div class="input-group">
+            {!! Form::number('next_service',$car->ruc,['class'=>"form-control"]) !!}
+            <span class="input-group-append">
+                <span class="input-group-text">KM</span>
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
         <label class="form-label">Next Service</label>
         <div class="input-group">
             {!! Form::number('next_service',$car->service,['class'=>"form-control"]) !!}

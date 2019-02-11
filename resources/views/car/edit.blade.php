@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Current Hubemeter Reading </label>
+                            <label class="form-label">Current Hubometer Reading </label>
 
                             <div class="input-group">
                                 {!! Form::number('hubemeter_reading',null,['class'=>'form-control']) !!}
