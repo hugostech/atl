@@ -45,21 +45,21 @@
                                 <td>
                                     <div class="small text-muted">Current: {{$car->hubemeter_reading}}</div>
                                     <span class="input-group-append"> 
-                                        <input type="text" name="hubemeter_reading[]" size="10" />
+                                        <input type="number" name="hubemeter_reading[]" size="10" style="max-width: 100px;"  />
                                         <span class="input-group-text">KM</span>
                                     </span>
                                 </td>
                                 <td>
                                     <div class="small text-muted">Current: {{$car->service}}Km</div> 
                                     <span class="input-group-append">
-                                        <input type="text" name="service[]" size="10" />
+                                        <input type="number" name="service[]" style="max-width: 100px;" />
                                         <span class="input-group-text">KM</span>
                                     </span>                                
                                 </td>
                                 <td>
                                     <div class="small text-muted">Current: {{$car->odometer_reading}}Km</div> 
                                     <span class="input-group-append">
-                                        <input type="text" name="odometer_reading[]" size="10" />
+                                        <input type="number" name="odometer_reading[]" size="10" style="max-width: 100px;"  />
                                         <span class="input-group-text">KM</span>
                                     </span>
                                 </td>
@@ -67,7 +67,7 @@
                                 <td>
                                     <div class="small text-muted">Current: {{$car->ruc}}Km</div> 
                                     <span class="input-group-append">
-                                        <input type="text" name="ruc[]" size="10" />
+                                        <input type="number" name="ruc[]" size="10" style="max-width: 100px;"  />
                                         <span class="input-group-text">KM</span>
                                     </span>
                                 </td>
