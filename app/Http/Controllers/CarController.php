@@ -7,7 +7,7 @@ use App\MileageHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CarController extends Controller
