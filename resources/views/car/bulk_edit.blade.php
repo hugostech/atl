@@ -18,7 +18,7 @@
                             <tr>
                                 <th class="text-center w-1"><i class="icon-people"></i></th>
                                 <th>Plate</th>
-                                <th>Hubmeter</th>
+                                <th>Hubometer</th>
                                 <th>Service</th>
                                 <th>Odometer</th>
                                 <th>RUC</th>
@@ -43,21 +43,21 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="small text-muted">Current: {{$car->hubemeter_reading}}</div>
+                                    <div class="small text-muted">Current: {{number_format($car->hubemeter_reading)}}KM</div>
                                     <span class="input-group-append"> 
                                         <input type="number" name="hubemeter_reading[]" size="10" style="max-width: 100px;"  />
                                         <span class="input-group-text">KM</span>
                                     </span>
                                 </td>
                                 <td>
-                                    <div class="small text-muted">Current: {{$car->service}}Km</div> 
+                                    <div class="small text-muted">Current: {{number_format($car->service)}}KM</div>
                                     <span class="input-group-append">
                                         <input type="number" name="service[]" style="max-width: 100px;" />
                                         <span class="input-group-text">KM</span>
                                     </span>                                
                                 </td>
                                 <td>
-                                    <div class="small text-muted">Current: {{$car->odometer_reading}}Km</div> 
+                                    <div class="small text-muted">Current: {{number_format($car->odometer_reading)}}KM</div>
                                     <span class="input-group-append">
                                         <input type="number" name="odometer_reading[]" size="10" style="max-width: 100px;"  />
                                         <span class="input-group-text">KM</span>
@@ -65,7 +65,7 @@
                                 </td>
 
                                 <td>
-                                    <div class="small text-muted">Current: {{$car->ruc}}Km</div> 
+                                    <div class="small text-muted">Current: {{number_format($car->ruc)}}KM</div>
                                     <span class="input-group-append">
                                         <input type="number" name="ruc[]" size="10" style="max-width: 100px;"  />
                                         <span class="input-group-text">KM</span>
@@ -107,7 +107,7 @@
                     <thead>
                         <tr>
                         <th scope="col">Plate</th>
-                        <th scope="col">Hubmeter</th>
+                        <th scope="col">Hubometer</th>
                         <th scope="col">Service</th>
                         <th scope="col">Odometer</th>
                         <th scope="col">RUC</th>
