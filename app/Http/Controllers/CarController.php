@@ -32,8 +32,25 @@ class CarController extends Controller
         $user = Auth::user();
         $datas = $request->json()->all();
         foreach ($datas as $data) {
-            $data['last_editor'] = $user->id;
-            Car::find($data['id'])->update($data);
+            $update = [
+                'last_editor' => $user->id,
+            ];
+            if (!empty($data['hubemeter_reading'])) {
+                $update['hubemeter_reading'] = (int)$data['hubemeter_reading'];
+            }
+            if (!empty($data['service'])) {
+                $update['service'] = (int)$data['service'];
+            }
+            if (!empty($data['odometer_reading'])) {
+                $update['odometer_reading'] = (int)$data['odometer_reading'];
+            }
+            if (!empty($data['ruc'])) {
+                $update['ruc'] = (int)$data['ruc'];
+            }
+            if (!empty($data['cof'])) {
+                $update['cof'] = $data['cof'];
+            }
+            Car::find($data['id'])->update($update);
         }
         return json_encode("success");
     }
