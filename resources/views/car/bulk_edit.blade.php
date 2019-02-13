@@ -146,7 +146,7 @@
 
         $('input[name^="plate"]').each(function() {
             var row = "<tr>";
-            row += "<td>" + $(this).val() +"</td>";
+            row += "<td>" + $(this).val().toUpperCase() +"</td>";
             row += "<td>" + hubemeter_reading[x] +"</td>";
             row += "<td>" + service[x] +"</td>";
             row += "<td>" + odometer_reading[x] +"</td>";
@@ -190,6 +190,14 @@
             success: function (res) {
                 $("#msg").attr("style", "display:block");
                 $("#msg")[0].scrollIntoView();
+
+                $('input[name^="plate"]').each(function() {
+                    $("input[name='hubemeter_reading[]']").val('');
+                    $("input[name='service[]']").val('');
+                    $("input[name='ruc[]']").val('');
+                    $("input[name='odometer_reading[]']").val('');
+                    $("input[name='cof[]']").val('');
+                });
             }
         });
     }
