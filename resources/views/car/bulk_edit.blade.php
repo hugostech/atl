@@ -43,21 +43,21 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="small text-muted">Current: {{number_format($car->hubemeter_reading)}}KM</div>
+                                    <div class="small text-muted">Current: {{$car->hubemeter_reading}}KM</div>
                                     <span class="input-group-append"> 
                                         <input type="text" name="hubemeter_reading[]" size="10" />
                                         <span class="input-group-text">KM</span>
                                     </span>
                                 </td>
                                 <td>
-                                    <div class="small text-muted">Current: {{number_format($car->service)}}KM</div>
+                                    <div class="small text-muted">Current: {{$car->service}}KM</div>
                                     <span class="input-group-append">
                                         <input type="text" name="service[]" size="10" />
                                         <span class="input-group-text">KM</span>
                                     </span>                                
                                 </td>
                                 <td>
-                                    <div class="small text-muted">Current: {{number_format($car->odometer_reading)}}KM</div>
+                                    <div class="small text-muted">Current: {{$car->odometer_reading}}KM</div>
                                     <span class="input-group-append">
                                         <input type="text" name="odometer_reading[]" size="10" />
                                         <span class="input-group-text">KM</span>
@@ -65,7 +65,7 @@
                                 </td>
 
                                 <td>
-                                    <div class="small text-muted">Current: {{number_format($car->ruc)}}KM</div>
+                                    <div class="small text-muted">Current: {{$car->ruc}}KM</div>
                                     <span class="input-group-append">
                                         <input type="text" name="ruc[]" size="10" />
                                         <span class="input-group-text">KM</span>
@@ -84,7 +84,7 @@
                             @endforeach
                             <tr>
                                 <td colspan="8" class="text-center">
-                                    <input type="button" name="submit" value="Submit" onclick="confirm_save(this,'{{route('batch_save')}}')" class="btn btn-primary" data-toggle="modal" data-target="#confirm" />
+                                    <input type="button" name="submit" value="Update" onclick="confirm_save(this,'{{route('batch_save')}}')" class="btn btn-primary" data-toggle="modal" data-target="#confirm" />
                                 </td>
                             </tr>
                             </tbody>
