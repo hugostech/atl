@@ -7,11 +7,37 @@ use App\MileageHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CarController extends Controller
 {
+    public function CarBatchEdit(){
+        $user = Auth::user();
+        if (empty($user->company)) { //Admin user's company is empty
+            if (empty(Input::get('company',null))){
+                $cars = Car::all();
+            } else {
+                $cars = Car::where('company',Input::get('company'))->get();
+            }
+        } 
+        else { // normal user            
+            $cars = Car::where('company', $user->company)->get();            
+        }
+        
+        return view('car.bulk_edit',compact('cars'));
+    }
+
+    public function saveBatch(Request $request){
+        $user = Auth::user();
+        $datas = $request->json()->all();
+        foreach ($datas as $data) {
+            $data['last_editor'] = $user->id;
+            Car::find($data['id'])->update($data);
+        }
+        return json_encode("success");
+    }
+
     public function list(){
         $user = Auth::user();
         if (empty($user->company)) { //Admin user's company is empty

@@ -44,6 +44,9 @@ Route::prefix('user')->middleware(['web','auth'])->group(function (){
 Route::prefix('car')->middleware(['web','auth'])->group(function (){
     Route::get('list','CarController@list')->name('car_list');
     Route::get('new','CarController@newCar')->name('car_new');
+    Route::get('batch_edit','CarController@CarBatchEdit')->name('batch_edit');
+    Route::post('batch_save','CarController@saveBatch')->name('batch_save');
+
     Route::get('new_digger','CarController@newDigger')->name('car_new_digger');
     Route::get('/{id}/edit','CarController@editCar')->name('car_edit');
     Route::get('/{plate}/platedit','CarController@editCarByPlate')->name('car_edit_by_plate');
