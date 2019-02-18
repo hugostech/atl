@@ -29,7 +29,7 @@
     <div class="form-group">
         <label class="form-label">RUC End At</label>
         <div class="input-group">
-            {!! Form::number('next_service',$car->ruc,['class'=>"form-control"]) !!}
+            {!! Form::number('ruc',$car->ruc,['class'=>"form-control"]) !!}
             <span class="input-group-append">
                 <span class="input-group-text">KM</span>
             </span>

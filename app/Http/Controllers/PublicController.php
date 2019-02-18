@@ -53,13 +53,15 @@ class PublicController extends Controller
                 'hubmeter_reading'=>$request->get('hubmeter_reading'),
                 'body'=>$request->get('body'),
                 'mechanics'=>$request->get('mechanics'),
-                'hygiene'=>$request->get('hygiene')
+                'hygiene'=>$request->get('hygiene'),
+                'ruc'=>$request->get('ruc')
             ]);
             $car->odometer_reading = $request->get('odometer_reading');
             $car->cof = $request->get('cof_due_date');
             $car->reg = $request->get('rego_due_date');
             $car->service = $request->get('next_service');
             $car->hubemeter_reading = $request->get('hubmeter_reading');
+            $car->ruc = $request->get('ruc');
             $car->save();
             return 'Thanks';
         }

@@ -128,6 +128,7 @@
                         <th scope="col">GC</th>
                         <th scope="col">COF Due Date</th>
                         <th scope="col">REGO Due Date</th>
+                        <th scope="col">RUC End At</th>
                         <th scope="col">Next Service</th>
                         <th scope="col">Total Fuel(L)</th>
                         <th scope="col">Odometer(Km)</th>
@@ -173,6 +174,7 @@
                     row += "<td class='text-uppercase'>" + item.group_code +"</td>";
                     row += "<td>" + item.cof_due_date +"</td>";
                     row += "<td>" + rego_due_date +"</td>";
+                    row += "<td>" + item.ruc +"</td>";
                     row += "<td>" + next_service +"</td>";
                     row += "<td>" + total_fuel +"</td>";
                     row += "<td>" + item.odometer_reading +"</td>";
