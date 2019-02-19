@@ -7,39 +7,42 @@
  */
 
 namespace App\Libs;
+
 use App\Car;
 
 class Reminder
 {
     public $cars;
-    public function __construct($company=null)
+
+    public function __construct($company = null)
     {
-        if (!empty($company)){
-            $this->cars = Car::where('company',$company)->get();
-        }else{
+        if (!empty($company)) {
+            $this->cars = Car::where('company', $company)->get();
+        } else {
             $this->cars = Car::all();
         }
 
     }
 
-    public function getNeedServiceCars(){
+    public function getNeedServiceCars()
+    {
         $cars = [];
         $diggers = [];
         $digger_service_notification_level = 10;
 
-        foreach ($this->cars as $car){
+        foreach ($this->cars as $car) {
             $ruc = $car->needService();
-            if ($ruc !== false){
+            if ($ruc !== false) {
                 if ($car->vehicle_type == "Digger Vehicle") {
                     if ($ruc <= $digger_service_notification_level) {
                         $diggers[$car->plate] = $ruc;
                     }
                 } else {
-                    if ($ruc < 1500){
+                    if ($ruc < 1000) {
                         $cars[$car->plate] = $ruc;
                     }
                 }
-                
+
             }
         }
         return array(
@@ -48,17 +51,18 @@ class Reminder
         );
     }
 
-    public function getNeedRucCars(){
+    public function getNeedRucCars()
+    {
         $cars = [];
-        foreach ($this->cars as $car){
-            try{
+        foreach ($this->cars as $car) {
+            try {
                 $ruc = $car->needRuc();
-                if ($ruc!==false){
-                    if ($ruc<1500){
+                if ($ruc !== false) {
+                    if ($ruc < 1000) {
                         $cars[$car->plate] = $ruc;
                     }
                 }
-            }catch (\Exception $e){
+            } catch (\Exception $e) {
                 $cars[$car->plate] = $e->getMessage();
             }
 
@@ -66,22 +70,24 @@ class Reminder
         return $cars;
     }
 
-    public function getNeedCofCars(){
+    public function getNeedCofCars()
+    {
         $cars = [];
-        foreach ($this->cars as $car){
+        foreach ($this->cars as $car) {
             $days = $car->needCof();
-            if ($days<30){
+            if ($days < 30) {
                 $cars[$car->plate] = $days;
             }
         }
         return $cars;
     }
 
-    public function getNeedRegCars(){
+    public function getNeedRegCars()
+    {
         $cars = [];
-        foreach ($this->cars as $car){
+        foreach ($this->cars as $car) {
             $days = $car->needReg();
-            if ($days<30){
+            if ($days < 30) {
                 $cars[$car->plate] = $days;
             }
         }
