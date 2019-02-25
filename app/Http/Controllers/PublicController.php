@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Car;
 use App\Driver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PublicController extends Controller
@@ -56,6 +57,7 @@ class PublicController extends Controller
                 'hygiene'=>$request->get('hygiene'),
                 'ruc'=>$request->get('ruc')
             ]);
+            Log::error($this->car_inspector(...$request->all()));
             $car->odometer_reading = $request->get('odometer_reading');
             $car->cof = $request->get('cof_due_date');
             $car->reg = $request->get('rego_due_date');
@@ -66,4 +68,15 @@ class PublicController extends Controller
             return 'Thanks';
         }
     }
+
+    private function car_inspector(...$conditions){
+        $error_code = [];
+        foreach ($conditions as $key=>$value){
+            if ($value=="problem"){
+                $error_code[] = $key;
+            }
+        }
+        return $error_code;
+    }
+
 }
