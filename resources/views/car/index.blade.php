@@ -187,7 +187,7 @@
                     $("#history_table tbody").append(row);
                 });         
                 if (res.length == 0) {
-                    $('#history_table_div').html("<div class='text-danger'>No data found.</div>");
+                    $("#history_table > tbody").html("<tr><td colspan='13' class='text-danger'>No data found.</td><tr>");
                 }      
             }
         });
