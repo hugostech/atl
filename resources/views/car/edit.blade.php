@@ -172,8 +172,52 @@
                     {!! Form::close() !!}
 
                 </div> <!-- end home tab -->
-                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab"><!-- start history tab -->
-                    history
+                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab"><!-- start history tab -->                    
+                    <div class="row ">
+                        <div>From{!! Form::date('from', Carbon\Carbon::today()->format('Y-m-d'), ['class'=>"form-control", 'id'=>'from', 'required']) !!}</div>
+                        <div>To{!! Form::date('to', Carbon\Carbon::today()->format('Y-m-d'), ['class'=>"form-control", 'id'=>'to','required']) !!}</div>
+                        <div style="margin-right: 5px; margin-top: 23px;"><input type="button" value="Search" class="btn btn-primary" onclick="showHistory('{{route('car_history_print',['id'=>$car->id,"from"=>"from","to"=>"to"])}}')" > </div>
+                        <div style="margin-top: 23px;"><input type="button" value="Print" class="btn btn-primary" onclick="print_table()" > </div>
+                    </div>
+                    <table class="table" id="history_table">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Driver</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">GC</th>
+                            <th scope="col">COF Due Date</th>
+                            <th scope="col">REGO Due Date</th>
+                            <th scope="col">Next Service</th>
+                            <th scope="col">Total Fuel(L)</th>
+                            <th scope="col">Odometer(Km)</th>
+                            <th scope="col">Hubo(Km)</th>
+                            <th scope="col">Body</th>
+                            <th scope="col">Mechanics</th>
+                            <th scope="col">Hygiene</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($history as $indexKey => $item)
+                            <tr>
+                            <th scope='row'>{{ ($indexKey + 1) }}</th>
+                            <td>{{$item->name }}</td>
+                            <td>{{$item->date }}</td>
+                            <td class='text-uppercase'>{{$item->group_code }}</td>
+                            <td>{{$item->cof_due_date }}</td>
+                            <td>{{$item->rego_due_date != null ? $item->rego_due_date : '' }}</td>
+                            
+                            <td>{{$item->next_service != null ? $item->next_service : '' }}</td>
+                            <td>{{$item->total_fuel != null ? $item->total_fuel : '' }}</td>
+                            <td>{{$item->odometer_reading }}</td>
+                            <td>{{$item->hubmeter_reading }}</td>
+                            <td>{{$item->body }}</td>
+                            <td>{{$item->mechanics }}</td>
+                            <td>{{$item->hygiene }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div><!-- end history tab -->
             
             </div>
@@ -182,3 +226,58 @@
     </div>
 </div>
 @endsection
+
+<script>
+    
+    function print_table()
+    {
+        var divToPrint=document.getElementById("history_table");
+        newWin= window.open("");
+        newWin.document.write(divToPrint.outerHTML);
+        newWin.print();
+        newWin.close();
+    }
+
+    function showHistory(url) {
+        var from = $('#from').val();
+        var to = $('#to').val();  
+        url = url.replace("/from/", "/" + from + "/" );
+        url = url.replace("/to", "/" + to);
+        $.ajax({
+            url: url,
+            type: "get",
+            data: '' ,
+            dataType: "json",
+            success: function (res) {
+                //console.log(res[0])
+                $("#history_table > tbody").html("");
+                jQuery.each(res, function(index, item) {
+                    var rego_due_date = item.rego_due_date != null ? item.rego_due_date : '';
+                    var next_service = item.next_service != null ? item.next_service : '';
+                    var total_fuel = item.total_fuel != null ? item.total_fuel : '';
+
+                    var row = "<tr>";
+                    row += "<th scope='row'>"+ (index + 1) +"</th>";
+                    row += "<td>" + item.name +"</td>";
+                    row += "<td>" + item.date +"</td>";
+                    row += "<td class='text-uppercase'>" + item.group_code +"</td>";
+                    row += "<td>" + item.cof_due_date +"</td>";
+                    row += "<td>" + rego_due_date +"</td>";
+                    row += "<td>" + next_service +"</td>";
+                    row += "<td>" + total_fuel +"</td>";
+                    row += "<td>" + item.odometer_reading +"</td>";
+                    row += "<td>" + item.hubmeter_reading +"</td>";
+                    row += "<td>" + item.body +"</td>";
+                    row += "<td>" + item.mechanics +"</td>";
+                    row += "<td>" + item.hygiene +"</td>";
+                    row += "</tr>";
+
+                    $("#history_table tbody").append(row);
+                });         
+                if (res.length == 0) {
+                    $("#history_table > tbody").html("<tr><td colspan='13' class='text-danger'>No data found.</td><tr>");
+                }      
+            }
+        });
+    }
+</script>
