@@ -100,7 +100,8 @@ class CarController extends Controller
 
     public function editCarByPlate($plate){
         $car = Car::where('plate',$plate)->first();
-        return view('car.edit',compact('car'));
+        $history = [];
+        return view('car.edit',compact('car', 'history'));
     }
 
     public function updateCar($id,Request $request){
