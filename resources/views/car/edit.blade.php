@@ -177,6 +177,8 @@
                         <div>From{!! Form::date('from', Carbon\Carbon::today()->format('Y-m-d'), ['class'=>"form-control", 'id'=>'from', 'required']) !!}</div>
                         <div>To{!! Form::date('to', Carbon\Carbon::today()->format('Y-m-d'), ['class'=>"form-control", 'id'=>'to','required']) !!}</div>
                         <div style="margin-right: 5px; margin-top: 23px;"><input type="button" value="Search" class="btn btn-primary" onclick="showHistory('{{route('car_history_print',['id'=>$car->id,"from"=>"from","to"=>"to"])}}')" > </div>
+                        <div style="margin-right: 5px; margin-top: 23px;"><input type="button" value="This Month" class="btn btn-primary" onclick="showHistory('{{route('car_history_print',['id'=>$car->id,"from"=>Carbon\Carbon::now()->startOfMonth()->format('Y-m-d'),"to"=>Carbon\Carbon::now()->endOfMonth()->format('Y-m-d') ])}}')" > </div>
+                        <div style="margin-right: 5px; margin-top: 23px;"><input type="button" value="Last Month" class="btn btn-primary" onclick="showHistory('{{route('car_history_print',['id'=>$car->id,"from"=>Carbon\Carbon::now()->startOfMonth()->subMonth()->format('Y-m-d'),"to"=>Carbon\Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d') ])}}')" > </div>
                         <div style="margin-top: 23px;"><input type="button" value="Print" class="btn btn-primary" onclick="print_table()" > </div>
                     </div>
                     <table class="table" id="history_table">
