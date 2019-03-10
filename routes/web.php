@@ -55,4 +55,5 @@ Route::prefix('car')->middleware(['web','auth'])->group(function (){
     Route::post('/{id}/edit','CarController@updateCar')->name('car_update');
     Route::post('create','CarController@saveCar')->name('car_create');
     Route::get('/history/{car_id}','CarController@history')->name('car_history');
+    Route::get('/history_print/{car_id}/{from}/{to}','CarController@history')->name('car_history_print');
 });

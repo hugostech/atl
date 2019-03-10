@@ -54,14 +54,16 @@ class CarController extends Controller
         return view('car.index',compact('cars'));
     }
 
-    public function history($car_id){   
+    public function history($car_id, $from='', $to=''){   
         $data = DB::table('mileage_histories')
                 ->join('drivers', 'drivers.id', '=', 'mileage_histories.driver_id')
                 ->select('mileage_histories.*', 'drivers.name')
-                ->where('mileage_histories.car_id', $car_id)
-                ->orderBy('mileage_histories.updated_at', 'desc')
-                ->get();
-        return $data;
+                ->where('mileage_histories.car_id', $car_id);
+        if (!empty($from) && !empty($to)) {
+            $data->whereBetween('mileage_histories.date', [$from, $to]);
+        }
+        $data->orderBy('mileage_histories.updated_at', 'desc');
+        return $data->get();
     }
 
     public function getCarInfo(Request $request){
@@ -92,12 +94,14 @@ class CarController extends Controller
 
     public function editCar($id){
         $car = Car::find($id);
-        return view('car.edit',compact('car'));
+        $history = $this->history($id);
+        return view('car.edit',compact('car', 'history'));
     }
 
     public function editCarByPlate($plate){
         $car = Car::where('plate',$plate)->first();
-        return view('car.edit',compact('car'));
+        $history = $this->history($car->id);
+        return view('car.edit',compact('car', 'history'));
     }
 
     public function updateCar($id,Request $request){

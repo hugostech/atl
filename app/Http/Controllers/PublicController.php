@@ -57,7 +57,7 @@ class PublicController extends Controller
                 'hygiene'=>$request->get('hygiene'),
                 'ruc'=>$request->get('ruc')
             ]);
-            Log::error($this->car_inspector(...$request->all()));
+//            Log::error($this->car_inspector(...$request->all()));
             $car->odometer_reading = $request->get('odometer_reading');
             $car->cof = $request->get('cof_due_date');
             $car->reg = $request->get('rego_due_date');
