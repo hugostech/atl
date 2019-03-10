@@ -31,19 +31,24 @@ class Reminder
         $digger_service_notification_level = 10;
 
         foreach ($this->cars as $car) {
-            $ruc = $car->needService();
-            if ($ruc !== false) {
-                if ($car->vehicle_type == "Digger Vehicle") {
-                    if ($ruc <= $digger_service_notification_level) {
-                        $diggers[$car->plate] = $ruc;
+            try{
+                $ruc = $car->needService();
+                if ($ruc !== false) {
+                    if ($car->vehicle_type == "Digger Vehicle") {
+                        if ($ruc <= $digger_service_notification_level) {
+                            $diggers[$car->plate] = $ruc;
+                        }
+                    } else {
+                        if ($ruc < 1000) {
+                            $cars[$car->plate] = $ruc;
+                        }
                     }
-                } else {
-                    if ($ruc < 1000) {
-                        $cars[$car->plate] = $ruc;
-                    }
-                }
 
+                }
+            }catch (\Exception $e){
+                $cars[$car->plate] = $e->getMessage();
             }
+
         }
         return array(
             "cars" => $cars,
