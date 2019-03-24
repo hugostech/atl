@@ -55,7 +55,8 @@ class PublicController extends Controller
                 'body'=>$request->get('body'),
                 'mechanics'=>$request->get('mechanics'),
                 'hygiene'=>$request->get('hygiene'),
-                'ruc'=>$request->get('ruc')
+                'ruc'=>$request->get('ruc'),
+                'last_service_date'=>$request->get('last_service_date')
             ]);
 //            Log::error($this->car_inspector(...$request->all()));
             $car->odometer_reading = $request->get('odometer_reading');
@@ -64,6 +65,7 @@ class PublicController extends Controller
             $car->service = $request->get('next_service');
             $car->hubemeter_reading = $request->get('hubmeter_reading');
             $car->ruc = $request->get('ruc');
+            $car->last_service_date = $request->get('last_service_date');
             $car->save();
             return 'Thanks';
         }

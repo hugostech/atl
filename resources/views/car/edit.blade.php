@@ -184,12 +184,13 @@
                     <table class="table" id="history_table">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
+                            {{--<th scope="col">#</th>--}}
                             <th scope="col">Driver</th>
                             <th scope="col">Date</th>
                             <th scope="col">GC</th>
                             <th scope="col">COF Due Date</th>
                             <th scope="col">REGO Due Date</th>
+                            <th scope="col">Last Service Date</th>
                             <th scope="col">Next Service</th>
                             <th scope="col">Total Fuel(L)</th>
                             <th scope="col">Odometer(Km)</th>
@@ -202,13 +203,14 @@
                         <tbody>
                         @foreach($history as $indexKey => $item)
                             <tr>
-                            <th scope='row'>{{ ($indexKey + 1) }}</th>
+                            {{--<th scope='row'>{{ ($indexKey + 1) }}</th>--}}
                             <td>{{$item->name }}</td>
                             <td>{{$item->date }}</td>
                             <td class='text-uppercase'>{{$item->group_code }}</td>
                             <td>{{$item->cof_due_date }}</td>
                             <td>{{$item->rego_due_date != null ? $item->rego_due_date : '' }}</td>
-                            
+                            <td>{{$item->last_service_date != null ? $item->last_service_date : '' }}</td>
+
                             <td>{{$item->next_service != null ? $item->next_service : '' }}</td>
                             <td>{{$item->total_fuel != null ? $item->total_fuel : '' }}</td>
                             <td>{{$item->odometer_reading }}</td>

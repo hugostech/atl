@@ -32,10 +32,10 @@ class Car extends Model
             }
         } else {
             if (!empty($this->service)) {
-                if ($this->hubemeter_reading > 0) {
-                    return $this->service - $this->hubemeter_reading;
-                } elseif ($this->odometer_reading > 0) {
+                if ($this->odometer_reading > 0) {
                     return $this->service - $this->odometer_reading;
+                } elseif ($this->hubemeter_reading > 0) {
+                    return $this->service - $this->hubemeter_reading;
                 } else {
                     Throw new \Exception('Setting error, missing odometer reading or hubemeter reading');
                 }
