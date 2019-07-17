@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index()
     {
         if(!empty(Auth::user()->company)){
-            return redirect()->route('name',['company'=>Auth::user()->company]);
+            return redirect()->route('home',['company'=>Auth::user()->company]);
         }
 
         $reminder = new Reminder(Input::get('company',null));
