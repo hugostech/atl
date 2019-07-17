@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Car;
 use App\Libs\Reminder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 class HomeController extends Controller
@@ -26,6 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(!empty(Auth::user()->company)){
+            return redirect()->route('name',['company'=>Auth::user()->company]);
+        }
+
         $reminder = new Reminder(Input::get('company',null));
         $ruc = $reminder->getNeedRucCars();
         $cof = $reminder->getNeedCofCars();
