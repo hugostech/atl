@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(!empty(Auth::user()->company)){
+        if(!empty(Auth::user()->company) && !Input::get('company')){
             return redirect()->route('home',['company'=>Auth::user()->company]);
         }
 
