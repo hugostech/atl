@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,8 +14,23 @@ class Car extends Model
     protected $fillable = [
         'odometer_reading', 'plate', 'no_of_seats', 'tyreinfo', 'year_of_manufacture', 'cof',
         'reg', 'service', 'ruc', 'make', 'model', 'vin', 'engine_no', 'main_colour', 'last_service_date',
-        'hubemeter_reading', 'company', 'last_editor', 'vehicle_type', 'hours', 'service_hours'
+        'hubemeter_reading', 'company', 'last_editor', 'vehicle_type', 'hours', 'service_hours',
+        'status'
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('status', function (Builder $builder) {
+            $builder->where('status', 1);
+        });
+    }
 
     public function mileage_histories()
     {

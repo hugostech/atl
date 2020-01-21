@@ -181,7 +181,7 @@
 
                 </div>
                 <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
-                    Copyright © 2018 <a href="#">{{config('app.name')}}</a>. All rights reserved.
+                    Copyright © {{\Illuminate\Support\Carbon::today()->year}} <a href="#">{{config('app.name')}}</a>. All rights reserved.
                 </div>
             </div>
         </div>

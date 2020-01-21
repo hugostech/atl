@@ -93,13 +93,13 @@ class CarController extends Controller
     }
 
     public function editCar($id){
-        $car = Car::find($id);
+        $car = Car::withoutGlobalScope('status')->find($id);
         $history = $this->history($id);
         return view('car.edit',compact('car', 'history'));
     }
 
     public function editCarByPlate($plate){
-        $car = Car::where('plate',$plate)->first();
+        $car = Car::withoutGlobalScope('status')->where('plate',$plate)->first();
         $history = $this->history($car->id);
         return view('car.edit',compact('car', 'history'));
     }
