@@ -105,7 +105,7 @@ class CarController extends Controller
     }
 
     public function updateCar($id,Request $request){
-        Car::find($id)->update($request->all());
+        Car::withoutGlobalScope('status')->find($id)->update($request->all());
         return redirect()->route('car_edit',['id'=>$id])->with('update_success','Update Success');
     }
 
