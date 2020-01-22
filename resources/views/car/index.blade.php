@@ -29,7 +29,7 @@
                         @foreach($cars as $car)
                         <tr>
                             <td class="text-center">
-                                <div class="avatar d-block" style="background-image: url({{asset('logos/Mercedes-Benz-logo.png')}})">
+                                <div class="avatar avatar-lg d-block" style="background-image: url({{asset($car->image)}})">
                                     @if($car->status==1)
                                     <span class="avatar-status bg-green"></span>
                                     @else

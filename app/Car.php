@@ -32,6 +32,14 @@ class Car extends Model
         });
     }
 
+    public function getImageAttribute($value){
+        if (empty($value)){
+            return 'logos/Mercedes-Benz-logo.png';
+        }else{
+            return $value;
+        }
+    }
+
     public function mileage_histories()
     {
         return $this->hasMany('App\MileageHistory', 'car_id', 'id');
