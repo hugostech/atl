@@ -30,7 +30,11 @@
                         <tr>
                             <td class="text-center">
                                 <div class="avatar d-block" style="background-image: url({{asset('logos/Mercedes-Benz-logo.png')}})">
+                                    @if($car->status==1)
                                     <span class="avatar-status bg-green"></span>
+                                    @else
+                                    <span class="avatar-status bg-red-dark"></span>
+                                    @endif
                                 </div>
                             </td>
                             <td>

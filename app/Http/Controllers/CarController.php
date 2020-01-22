@@ -42,13 +42,13 @@ class CarController extends Controller
         $user = Auth::user();
         if (empty($user->company)) { //Admin user's company is empty
             if (empty(Input::get('company',null))){
-                $cars = Car::all();
+                $cars = Car::withoutGlobalScope('status')->orderBy('status', 'desc')->get();
             }else{
-                $cars = Car::where('company',Input::get('company'))->get();
+                $cars = Car::withoutGlobalScope('status')->where('company',Input::get('company'))->orderBy('status', 'desc')->get();
             }
         } 
         else { // normal user            
-            $cars = Car::where('company', $user->company)->get();            
+            $cars = Car::withoutGlobalScope('status')->where('company', $user->company)->orderBy('status', 'desc')->get();
         }
         
         return view('car.index',compact('cars'));
