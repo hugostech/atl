@@ -16,18 +16,26 @@
             </ul>
             <div class="tab-content" id="myTabContent"> 
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"> <!-- start home tab -->
-                    {!! Form::model($car,['route'=>['car_update','id'=>$car->id],'method'=>'post','class'=>'card','onsubmit'=>"return confirm('Are you sure?')"]) !!}
-                    {!! Form::hidden('last_editor',\Illuminate\Support\Facades\Auth::user()->id) !!}
-                    {!! Form::hidden('vehicle_type', $car->vehicle_type) !!}
+                    {!! Form::model($car,['route'=>['car_update','id'=>$car->id], 'method'=>'post']) !!}
                     <div class="card-header">
                         @if($car->vehicle_type == "Digger Vehicle")
                             <h3 class="card-title">Edit Digger {{$car->plate}}</h3>
                         @else
                             <h3 class="card-title">Edit Vehicle {{$car->plate}}</h3>
                         @endif
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <label class="custom-switch">
+                            {!! Form::input('checkbox','vehicle_switch',null,['class'=>'custom-switch-input','onChange'=>'this.form.submit()', $car->status==1?'checked':'']) !!}
+                            {!! Form::hidden('status', abs($car->status-1)) !!}
+                            <span class="custom-switch-indicator"></span>
+                        </label>
 
                     </div>
-                    
+                    {!! Form::close() !!}
+                    {!! Form::model($car,['route'=>['car_update','id'=>$car->id],'method'=>'post','class'=>'card','onsubmit'=>"return confirm('Are you sure?')"]) !!}
+                    {!! Form::hidden('last_editor',\Illuminate\Support\Facades\Auth::user()->id) !!}
+                    {!! Form::hidden('vehicle_type', $car->vehicle_type) !!}
                     <div class="card-body">
                         <h6 class="card-subtitle mb-20 text-muted">Last Edit:
                             @if($car->lastEditor)
@@ -50,6 +58,7 @@
                                     <label class="form-label">No of Seats <span class="form-required">*</span></label>
                                     {!! Form::number('no_of_seats',null,['class'=>'form-control','placeholder'=>'Seats','required']) !!}
                                 </div>
+
                                 @endif
                                 <div class="form-group">
                                     <label class="form-label">Tyre Info <span class="form-required">*</span></label>

@@ -42,13 +42,13 @@ class CarController extends Controller
         $user = Auth::user();
         if (empty($user->company)) { //Admin user's company is empty
             if (empty(Input::get('company',null))){
-                $cars = Car::all();
+                $cars = Car::withoutGlobalScope('status')->orderBy('status', 'desc')->get();
             }else{
-                $cars = Car::where('company',Input::get('company'))->get();
+                $cars = Car::withoutGlobalScope('status')->where('company',Input::get('company'))->orderBy('status', 'desc')->get();
             }
         } 
         else { // normal user            
-            $cars = Car::where('company', $user->company)->get();            
+            $cars = Car::withoutGlobalScope('status')->where('company', $user->company)->orderBy('status', 'desc')->get();
         }
         
         return view('car.index',compact('cars'));
@@ -93,19 +93,19 @@ class CarController extends Controller
     }
 
     public function editCar($id){
-        $car = Car::find($id);
+        $car = Car::withoutGlobalScope('status')->find($id);
         $history = $this->history($id);
         return view('car.edit',compact('car', 'history'));
     }
 
     public function editCarByPlate($plate){
-        $car = Car::where('plate',$plate)->first();
+        $car = Car::withoutGlobalScope('status')->where('plate',$plate)->first();
         $history = $this->history($car->id);
         return view('car.edit',compact('car', 'history'));
     }
 
     public function updateCar($id,Request $request){
-        Car::find($id)->update($request->all());
+        Car::withoutGlobalScope('status')->find($id)->update($request->all());
         return redirect()->route('car_edit',['id'=>$id])->with('update_success','Update Success');
     }
 
