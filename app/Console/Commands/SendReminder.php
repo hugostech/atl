@@ -27,18 +27,18 @@ class SendReminder extends Command
      *
      * @var Reminder
      */
-    protected $reminder;
+//    protected $reminder;
 
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(Reminder $reminder)
+    public function __construct()
     {
         parent::__construct();
 
-        $this->reminder = $reminder;
+//        $this->reminder = new Reminder();
     }
 
     /**
@@ -48,9 +48,10 @@ class SendReminder extends Command
      */
     public function handle()
     {
-        $ruc = $this->reminder->getNeedRucCars();
-        $cof = $this->reminder->getNeedCofCars();
-        $service = $this->reminder->getNeedServiceCars();
-        $reg = $this->reminder->getNeedRegCars();
+        $reminder = new Reminder();
+        $ruc = $reminder->getNeedRucCars();
+        $cof = $reminder->getNeedCofCars();
+        $service = $reminder->getNeedServiceCars();
+        $reg = $reminder->getNeedRegCars();
     }
 }
