@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Car extends Model
 {
@@ -34,9 +35,9 @@ class Car extends Model
 
     public function getImageAttribute($value){
         if (empty($value)){
-            return 'logos/Mercedes-Benz-logo.png';
+            return asset('logos/Mercedes-Benz-logo.png');
         }else{
-            return $value;
+            return asset(Storage::url('avatar/'.$value));
         }
     }
 

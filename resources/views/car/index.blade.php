@@ -29,7 +29,7 @@
                         @foreach($cars as $car)
                         <tr>
                             <td class="text-center">
-                                <div class="avatar avatar-lg d-block" style="background-image: url({{asset($car->image)}})">
+                                <div class="avatar avatar-lg d-block" style="background-image: url({{$car->image}})">
                                     @if($car->status==1)
                                     <span class="avatar-status bg-green"></span>
                                     @else
@@ -66,7 +66,7 @@
                             <td class="text-center">
                                 <div>{{$car->tyreinfo}}</div>
                             </td>
-                            
+
                             <td class="text-center">
                                 <div class="item-action dropdown">
                                     <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
@@ -105,12 +105,12 @@
             </div>
 
             <div class="text-center" id="qr_code">
-            
+
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="download" name="" onclick="downloadQRCode(this)" data-dismiss="modal">Download QR Code</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -120,7 +120,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">History</h5>                
+                <h5 class="modal-title" id="exampleModalLabel">History</h5>
             </div>
             <div class="text-center" id='history_table_div'>
                 <table class="table" id="history_table">
@@ -143,13 +143,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -189,10 +189,10 @@
                     row += "</tr>";
 
                     $("#history_table tbody").append(row);
-                });         
+                });
                 if (res.length == 0) {
                     $("#history_table > tbody").html("<tr><td colspan='13' class='text-danger'>No data found.</td><tr>");
-                }      
+                }
             }
         });
     }
@@ -204,10 +204,10 @@
         domain = $('[name="domain"]').val();
 
         var qr_code_url = domain + "/qr_code/" + sharing_mark;
-        var img_qr_code = "<img src='" + qr_code_url + "' title='" + qr_code_url + "' />";        
-        $('#qr_code').html(img_qr_code);   
-        $('#download').attr('data-qr_code_url', qr_code_url);  
-        $('#download').attr('data-plate', plate);   
+        var img_qr_code = "<img src='" + qr_code_url + "' title='" + qr_code_url + "' />";
+        $('#qr_code').html(img_qr_code);
+        $('#download').attr('data-qr_code_url', qr_code_url);
+        $('#download').attr('data-plate', plate);
     }
     function downloadQRCode(obj) {
         url = $(obj).attr("data-qr_code_url");
