@@ -20,11 +20,11 @@ class CarController extends Controller
             } else {
                 $cars = Car::where('company',Input::get('company'))->get();
             }
-        } 
-        else { // normal user            
-            $cars = Car::where('company', $user->company)->get();            
         }
-        
+        else { // normal user
+            $cars = Car::where('company', $user->company)->get();
+        }
+
         return view('car.bulk_edit',compact('cars'));
     }
 
@@ -46,15 +46,15 @@ class CarController extends Controller
             }else{
                 $cars = Car::withoutGlobalScope('status')->where('company',Input::get('company'))->orderBy('status', 'desc')->get();
             }
-        } 
-        else { // normal user            
+        }
+        else { // normal user
             $cars = Car::withoutGlobalScope('status')->where('company', $user->company)->orderBy('status', 'desc')->get();
         }
-        
+
         return view('car.index',compact('cars'));
     }
 
-    public function history($car_id, $from='', $to=''){   
+    public function history($car_id, $from='', $to=''){
         $data = DB::table('mileage_histories')
                 ->join('drivers', 'drivers.id', '=', 'mileage_histories.driver_id')
                 ->select('mileage_histories.*', 'drivers.name')
@@ -85,7 +85,7 @@ class CarController extends Controller
         $this->validate($request, [
             'plate'=>'required|unique:cars'
         ]);
-        
+
         $car = Car::create($request->all());
         $car->sharing_mark = md5(Str::uuid());
         $car->save();
@@ -123,6 +123,19 @@ class CarController extends Controller
      */
     public function showCar($car_id){
         return redirect()->route('car_edit',['id'=>$car_id]);
+    }
+
+    public function updateAvatar($id, Request $request){
+        if ($request->hasFile('avatar')) {
+            $car = Car::withoutGlobalScope('status')->find($id);
+            $filename = mb_split('/',$request->avatar->store('avatar', 'public'));
+            $car->image = end($filename);
+            $car->save();
+            return redirect()->route('car_edit',['id'=>$id])->with('update_success','Update Success');
+        }else{
+            return redirect()->route('car_edit',['id'=>$id])->with('update_danger','Update Avatar Failed');
+        }
+
     }
 
 }

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Car extends Model
 {
@@ -30,6 +31,14 @@ class Car extends Model
         static::addGlobalScope('status', function (Builder $builder) {
             $builder->where('status', 1);
         });
+    }
+
+    public function getImageAttribute($value){
+        if (empty($value)){
+            return asset('logos/Mercedes-Benz-logo.png');
+        }else{
+            return asset(Storage::url('avatar/'.$value));
+        }
     }
 
     public function mileage_histories()

@@ -2,7 +2,7 @@
 
 @section('page')
 <div class="container">
-    <div class="row">        
+    <div class="row">
         <div class="col-12">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -14,7 +14,7 @@
                     aria-selected="false">History</a>
                 </li>
             </ul>
-            <div class="tab-content" id="myTabContent"> 
+            <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"> <!-- start home tab -->
                     {!! Form::model($car,['route'=>['car_update','id'=>$car->id], 'method'=>'post']) !!}
                     <div class="card-header">
@@ -42,11 +42,13 @@
                                 {{$car->lastEditor->name}} < {{$car->lastEditor->email}} >
                             @endif
                             at {{$car->updated_at}}</h6>
-                        @if(\Illuminate\Support\Facades\Session::has('update_success'))
-                            <div class="alert alert-success">
-                                <strong>Success!</strong> {{\Illuminate\Support\Facades\Session::get('update_success')}}
+                        @foreach(['success', 'danger'] as $status)
+                        @if(\Illuminate\Support\Facades\Session::has('update_'.$status))
+                            <div class="alert alert-{{$status}}">
+                                <strong>Success!</strong> {{\Illuminate\Support\Facades\Session::get('update_'.$status)}}
                             </div>
                         @endif
+                        @endforeach
                         @component('components.error')
                         @endcomponent
                         <div class="row">
@@ -87,13 +89,13 @@
                                 <div class="form-group">
                                     <label class="form-label">Year Of Manufacture</label>
                                     {!! Form::text('year_of_manufacture',null,['class'=>'form-control']) !!}
-                                </div>         
-                                
+                                </div>
+
                                 <div class="form-group">
                                     <label class="form-label">Engine no</label>
                                     {!! Form::text('engine_no',null,['class'=>'form-control']) !!}
                                 </div>
-                                
+
                                 <div class="form-group">
                                     {!! Form::submit('Update',['class'=>'btn btn-primary']) !!}
                                 </div>
@@ -136,12 +138,12 @@
                                     <label class="form-label">Main colour</label>
                                     {!! Form::text('main_colour',null,['class'=>'form-control']) !!}
                                 </div>
-                                
+
 
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="form-group">
-                                    <label class="form-label">Company <span class="form-required">*</span></label>                            
+                                    <label class="form-label">Company <span class="form-required">*</span></label>
                                     @if (\Illuminate\Support\Facades\Auth::user()->company == "")
                                     {!! Form::select('company',config('car.company',[]),null,['class'=>'form-control','placeholder'=>'Select Company', 'required']) !!}
                                     @else
@@ -163,7 +165,17 @@
                                 <div class="form-group">
                                     <label class="form-label">Vin</label>
                                     {!! Form::text('vin',null,['class'=>'form-control']) !!}
-                                </div>                        
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label class="imagecheck mb-4">
+
+                                        <figure class="imagecheck-figure">
+                                            <img src="{{$car->image}}" alt="avatar" class="imagecheck-image" data-toggle="modal" data-target="#avatarModal">
+                                        </figure>
+
+                                    </label>
+                                </div>
 
                                 @if($car->vehicle_type == "Digger Vehicle")
                                 <div class="form-group">
@@ -180,8 +192,9 @@
                     </div>
                     {!! Form::close() !!}
 
+
                 </div> <!-- end home tab -->
-                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab"><!-- start history tab -->                    
+                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab"><!-- start history tab -->
                     <div class="row ">
                         <div>From{!! Form::date('from', Carbon\Carbon::today()->format('Y-m-d'), ['class'=>"form-control", 'id'=>'from', 'required']) !!}</div>
                         <div>To{!! Form::date('to', Carbon\Carbon::today()->format('Y-m-d'), ['class'=>"form-control", 'id'=>'to','required']) !!}</div>
@@ -232,16 +245,36 @@
                         </tbody>
                     </table>
                 </div><!-- end history tab -->
-            
+
             </div>
         </div>
 
     </div>
 </div>
+<!-- Update Avatar Modal -->
+<div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Avatar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @component('components.avatar', ['car'=>$car])
+                @endcomponent
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 <script>
-    
+
     function print_table()
     {
         var divToPrint=document.getElementById("history_table");
@@ -253,7 +286,7 @@
 
     function showHistory(url) {
         var from = $('#from').val();
-        var to = $('#to').val();  
+        var to = $('#to').val();
         url = url.replace("/from/", "/" + from + "/" );
         url = url.replace("/to", "/" + to);
         $.ajax({
@@ -286,10 +319,10 @@
                     row += "</tr>";
 
                     $("#history_table tbody").append(row);
-                });         
+                });
                 if (res.length == 0) {
                     $("#history_table > tbody").html("<tr><td colspan='13' class='text-danger'>No data found.</td><tr>");
-                }      
+                }
             }
         });
     }
