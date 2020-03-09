@@ -15,7 +15,7 @@ class PublicController extends Controller
         if (is_null($car)){
             abort(404);
         }else{
-            $drivers = Driver::where('company',$car->company)->pluck('name', 'id')->all(); // this is for driver dropdown
+            $drivers = Driver::where('company',$car->company)->available()->orderBy('name')->pluck('name', 'id')->all(); // this is for driver dropdown
             return view('car.updatemeter',compact('drivers', 'car'));
         }
     }
@@ -50,7 +50,7 @@ class PublicController extends Controller
                 'cof_due_date'=>$request->get('cof_due_date'),
                 'rego_due_date'=>$request->get('rego_due_date'),
                 'next_service'=>$request->get('next_service'),
-                'total_fuel'=>$request->get('total_fuel'),                
+                'total_fuel'=>$request->get('total_fuel'),
                 'hubmeter_reading'=>$request->get('hubmeter_reading'),
                 'body'=>$request->get('body'),
                 'mechanics'=>$request->get('mechanics'),

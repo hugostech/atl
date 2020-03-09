@@ -16,6 +16,7 @@
                         <tr>
                             <th class="text-center w-1"><i class="icon-people"></i></th>
                             <th>Name</th>
+                            <th>Phone</th>
                             <th>Company</th>
                             <th class="text-center"><i class="icon-settings"></i></th>
                         </tr>
@@ -26,17 +27,25 @@
                         <tr>
                             <td class="text-center">
                                 <div class="avatar d-block" style="background-image: url({{asset('logos/Mercedes-Benz-logo.png')}})">
+                                    @if($driver->status == 1)
                                     <span class="avatar-status bg-green"></span>
+                                    @else
+                                    <span class="avatar-status bg-red"></span>
+                                    @endif
                                 </div>
                             </td>
                             <td>
-                                <div class="text-uppercase">{{$driver->name}}</div>
+                                <a href="{{route('driver_edit',['id'=>$driver->id])}}"><div class="text-uppercase">{{$driver->name}}</div></a>
+
+                            </td>
+                            <td>
+                                <div class="text-uppercase">{{$driver->phone}}</div>
                             </td>
                             <td>
                                 <div class="small text-muted">Company</div>
-                                <div>{{ $driver->company }}</div>
+                                <div>{{ config('car.company')[$driver->company] }}</div>
                             </td>
-                            
+
                             <td class="text-center">
                                 <div class="item-action dropdown">
                                     <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
@@ -72,12 +81,12 @@
             </div>
 
             <div class="text-center" id="qr_code">
-            
+
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="download" name="" onclick="downloadQRCode(this)" data-dismiss="modal">Download QR Code</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -92,10 +101,10 @@
         domain = $('[name="domain"]').val();
 
         var qr_code_url = domain + "/qr_code/" + sharing_mark;
-        var img_qr_code = "<img src='" + qr_code_url + "' title='" + qr_code_url + "' />";        
-        $('#qr_code').html(img_qr_code);   
-        $('#download').attr('data-qr_code_url', qr_code_url);  
-        $('#download').attr('data-plate', plate);   
+        var img_qr_code = "<img src='" + qr_code_url + "' title='" + qr_code_url + "' />";
+        $('#qr_code').html(img_qr_code);
+        $('#download').attr('data-qr_code_url', qr_code_url);
+        $('#download').attr('data-plate', plate);
     }
     function downloadQRCode(obj) {
         url = $(obj).attr("data-qr_code_url");

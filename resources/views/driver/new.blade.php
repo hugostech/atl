@@ -12,7 +12,7 @@
             <div class="card-body">
                 @component('components.error')
                 @endcomponent
-                <div class="">              
+                <div class="">
                 <!-- <div class="row">       -->
                     <!-- <div class="col-md-6 col-lg-4"> -->
                     <div class="">
@@ -20,6 +20,12 @@
                             <label class="form-label">Name <span class="form-required">*</span></label>
                             <div class="input-group">
                                 {!! Form::text('name',null,['class'=>'form-control','placeholder'=>'Name of the driver','required']) !!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <div class="input-group">
+                                {!! Form::text('phone',null,['class'=>'form-control','placeholder'=>'phone of the driver']) !!}
                             </div>
                         </div>
 
@@ -34,16 +40,30 @@
                                     ['class'=>'form-control', 'required']
                                 ) !!}
                             @endif
-                            
+
                         </div>
-                                                
+
+
+                        <div class="form-group">
+                            <div class="form-label">Status <span class="form-required">*</span></div>
+                            <div class="custom-controls-stacked">
+                                <label class="custom-control custom-radio custom-control-inline">
+                                    {!! Form::radio('status',1,true,['class'=>'custom-control-input']) !!}
+                                    <span class="custom-control-label">Enable</span>
+                                </label>
+                                <label class="custom-control custom-radio custom-control-inline">
+                                    {!! Form::radio('status',0,false,['class'=>'custom-control-input']) !!}
+                                    <span class="custom-control-label">Disable</span>
+                                </label>
+                            </div>
+                        </div>
                         <div class="form-group">
                             {!! Form::submit('Save',['class'=>'btn btn-primary']) !!}
                         </div>
 
                     </div>
                     <!-- <div class="col-md-6 col-lg-4">
-                        
+
                     </div>
                     <div class="col-md-6 col-lg-4">
                     </div> -->

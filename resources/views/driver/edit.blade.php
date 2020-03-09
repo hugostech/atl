@@ -26,13 +26,17 @@
                 <div class="row">
 
 
-                    <div class="col-md-6 col-lg-4">                        
+                    <div class="col-md-6 col-lg-4">
                         <div class="form-group">
                             <label class="form-label">Name<span class="form-required">*</span></label>
                             {!! Form::text('name',null,['class'=>'form-control','placeholder'=>'Name of the driver','required']) !!}
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Company <span class="form-required">*</span></label>                            
+                            <label class="form-label">Phone</label>
+                            {!! Form::text('phone',null,['class'=>'form-control','placeholder'=>'Phone of the driver']) !!}
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Company <span class="form-required">*</span></label>
                             @if (\Illuminate\Support\Facades\Auth::user()->company == "")
                             {!! Form::select('company',config('car.company',[]),null,['class'=>'form-control','placeholder'=>'Select Company', 'required']) !!}
                             @else
@@ -43,17 +47,31 @@
                                 ) !!}
                             @endif
                         </div>
-                        
+
+                        <div class="form-group">
+                            <div class="form-label">Status <span class="form-required">*</span></div>
+                            <div class="custom-controls-stacked">
+                                <label class="custom-control custom-radio custom-control-inline">
+                                    {!! Form::radio('status',1,$driver->status==1,['class'=>'custom-control-input']) !!}
+                                    <span class="custom-control-label">Enable</span>
+                                </label>
+                                <label class="custom-control custom-radio custom-control-inline">
+                                    {!! Form::radio('status',0,$driver->status==0,['class'=>'custom-control-input']) !!}
+                                    <span class="custom-control-label">Disable</span>
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             {!! Form::submit('Update',['class'=>'btn btn-primary']) !!}
                         </div>
 
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        
+
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        
+
                     </div>
                 </div>
             </div>

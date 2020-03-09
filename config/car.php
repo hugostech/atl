@@ -8,7 +8,7 @@
 return [
     'company'=>[
         'atl'=>'ATL',
-        'etl'=>'ETL',
+        'etl'=>'GTG Earthmoving LTD',
         'kiwi_diesel'=>'KIWI DIESEL',
     ]
 ];
