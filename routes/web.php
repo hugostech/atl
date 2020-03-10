@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/update/{mark}','PublicController@updateOdometer')->name('sharing_url');
 Route::post('/update/{mark}','PublicController@saveOdometer')->name('save_odometer');
 Route::get('/qr_code/{mark}','PublicController@getQRCode')->name('qr_code');
+Route::get('/worksheet', 'PublicController@showWorkSheet')->name('worksheet');
 
 Route::prefix('driver')->middleware(['web','auth'])->group(function (){
     Route::get('list','DriverController@list')->name('driver_list');

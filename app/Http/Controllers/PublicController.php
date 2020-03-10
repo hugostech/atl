@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Car;
 use App\Driver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -79,6 +80,12 @@ class PublicController extends Controller
             }
         }
         return $error_code;
+    }
+
+    public function showWorkSheet(){
+        $carplate = Input::get('carplate')?:null;
+        $driverId = Input::get('driver')?:null;
+
     }
 
 }
