@@ -42,16 +42,19 @@ class CarController extends Controller
         $user = Auth::user();
         if (empty($user->company)) { //Admin user's company is empty
             if (empty(Input::get('company',null))){
-                $cars = Car::withoutGlobalScope('status')->orderBy('status', 'desc')->get();
+                $cars = Car::withoutGlobalScope('status')->typeCar()->orderBy('status', 'desc')->get();
+                $diggers = Car::withoutGlobalScope('status')->typeDigger()->orderBy('status', 'desc')->get();
             }else{
-                $cars = Car::withoutGlobalScope('status')->where('company',Input::get('company'))->orderBy('status', 'desc')->get();
+                $cars = Car::withoutGlobalScope('status')->typeCar()->where('company',Input::get('company'))->orderBy('status', 'desc')->get();
+                $diggers = Car::withoutGlobalScope('status')->typeDigger()->where('company',Input::get('company'))->orderBy('status', 'desc')->get();
             }
         }
         else { // normal user
-            $cars = Car::withoutGlobalScope('status')->where('company', $user->company)->orderBy('status', 'desc')->get();
+            $cars = Car::withoutGlobalScope('status')->typeCar()->where('company', $user->company)->orderBy('status', 'desc')->get();
+            $diggers= Car::withoutGlobalScope('status')->typeDigger()->where('company', $user->company)->orderBy('status', 'desc')->get();
         }
 
-        return view('car.index',compact('cars'));
+        return view('car.index',compact('cars', 'diggers'));
     }
 
     public function history($car_id, $from='', $to=''){
@@ -95,7 +98,12 @@ class CarController extends Controller
     public function editCar($id){
         $car = Car::withoutGlobalScope('status')->find($id);
         $history = $this->history($id);
-        return view('car.edit',compact('car', 'history'));
+        if ($car->isDigger()){
+            $template = 'car.editdigger';
+        }else{
+            $template = 'car.edit';
+        }
+        return view($template,compact('car', 'history'));
     }
 
     public function editCarByPlate($plate){

@@ -7,88 +7,161 @@
             <strong>Success!</strong> {{\Illuminate\Support\Facades\Session::get('success')}}
         </div>
     @endif
+
     <div class="row row-cards row-deck">
         <div class="col-12">
-            <div class="card">
-                <div class="table-responsive">
-                    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
-                        <thead>
-                        <tr>
-                            <th class="text-center w-1"><i class="icon-people"></i></th>
-                            <th>Plate</th>
-                            <th>RUC</th>
-                            <th>COF</th>
-                            <th>REG</th>
-                            <th class="text-center">Service</th>
-                            <th class="text-center">TYREINFO</th>
-                            <th class="text-center"><i class="icon-settings"></i></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {{ Form::hidden('domain', Request::root() ) }}
-                        @foreach($cars as $car)
-                        <tr>
-                            <td class="text-center">
-                                <div class="avatar avatar-lg d-block" style="background-image: url({{$car->image}})">
-                                    @if($car->status==1)
-                                    <span class="avatar-status bg-green"></span>
-                                    @else
-                                    <span class="avatar-status bg-red-dark"></span>
-                                    @endif
-                                </div>
-                            </td>
-                            <td>
-                                <div class="text-uppercase">{{$car->plate}}</div>
-                                <div class="small text-muted">
-                                    Registered: {{$car->year_of_manufacture}} {{strtoupper($car->main_colour)}} S: {{$car->no_of_seats}}
-                                </div>
-                            </td>
-                            <td>
-                                @component('components.ruc',['car'=>$car])
-                                    N/A
-                                @endcomponent
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#car" role="tab" aria-controls="home" aria-selected="true">Car</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#digger" role="tab" aria-controls="profile" aria-selected="false">Digger</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="car" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+                                <thead>
+                                <tr>
+                                    <th class="text-center w-1"><i class="icon-people"></i></th>
+                                    <th>Plate</th>
+                                    <th>RUC</th>
+                                    <th>COF</th>
+                                    <th>REG</th>
+                                    <th class="text-center">Service</th>
+                                    <th class="text-center">TYREINFO</th>
+                                    <th class="text-center"><i class="icon-settings"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{ Form::hidden('domain', Request::root() ) }}
+                                @foreach($cars as $car)
+                                    <tr>
+                                        <td class="text-center">
+                                            <div class="avatar avatar-lg d-block" style="background-image: url({{$car->image}})">
+                                                @if($car->status==1)
+                                                    <span class="avatar-status bg-green"></span>
+                                                @else
+                                                    <span class="avatar-status bg-red-dark"></span>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-uppercase">{{$car->plate}}</div>
+                                            <div class="small text-muted">
+                                                Registered: {{$car->year_of_manufacture}} {{strtoupper($car->main_colour)}} S: {{$car->no_of_seats}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @component('components.ruc',['car'=>$car])
+                                                N/A
+                                            @endcomponent
 
-                            </td>
-                            <td>
-                                <div class="small text-muted">Expired On</div>
-                                <div>{{\Carbon\Carbon::parse($car->cof)->format('d M Y')}}</div>
-                            </td>
-                            <td>
-                                <div class="small text-muted">Expired On</div>
-                                <div>{{\Carbon\Carbon::parse($car->reg)->format('d M Y')}}</div>
-                            </td>
+                                        </td>
+                                        <td>
+                                            <div class="small text-muted">Expired On</div>
+                                            <div>{{\Carbon\Carbon::parse($car->cof)->format('d M Y')}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="small text-muted">Expired On</div>
+                                            <div>{{\Carbon\Carbon::parse($car->reg)->format('d M Y')}}</div>
+                                        </td>
 
-                            <td class="text-center">
-                                @component('components.service',['car'=>$car])
-                                    N/A
-                                @endcomponent
-                            </td>
-                            <td class="text-center">
-                                <div>{{$car->tyreinfo}}</div>
-                            </td>
+                                        <td class="text-center">
+                                            @component('components.service',['car'=>$car])
+                                                N/A
+                                            @endcomponent
+                                        </td>
+                                        <td class="text-center">
+                                            <div>{{$car->tyreinfo}}</div>
+                                        </td>
 
-                            <td class="text-center">
-                                <div class="item-action dropdown">
-                                    <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a href="{{route('car_edit',['id'=>$car->id])}}" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit </a>
-                                        <a href="{{route('car_delete',['id'=>$car->id])}}" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete?')"><i class="dropdown-icon fe fe-delete"></i> Delete</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a href="javascript:void(0)" onclick="showlink(this, '{{route('sharing_url',['mark'=>$car->sharing_mark])}}')" id="{{$car->sharing_mark}}" data-plate="{{$car->plate}}" class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
-                                        <a href="javascript:void(0)" onclick="showHistory('{{route('car_history',['id'=>$car->id])}}')" class="dropdown-item" data-toggle="modal" data-target="#history"><i class="dropdown-icon fe fe-link"></i> History</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                                        <td class="text-center">
+                                            <div class="item-action dropdown">
+                                                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="{{route('car_edit',['id'=>$car->id])}}" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit </a>
+                                                    <a href="{{route('car_delete',['id'=>$car->id])}}" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete?')"><i class="dropdown-icon fe fe-delete"></i> Delete</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a href="javascript:void(0)" onclick="showlink(this, '{{route('sharing_url',['mark'=>$car->sharing_mark])}}')" id="{{$car->sharing_mark}}" data-plate="{{$car->plate}}" class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
+                                                    <a href="javascript:void(0)" onclick="showHistory('{{route('car_history',['id'=>$car->id])}}')" class="dropdown-item" data-toggle="modal" data-target="#history"><i class="dropdown-icon fe fe-link"></i> History</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="digger" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+                                <thead>
+                                <tr>
+                                    <th class="text-center w-1"><i class="icon-people"></i></th>
+                                    <th>Digger Number</th>
+                                    <th class="text-center">Service</th>
+                                    <th class="text-center"><i class="icon-settings"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{ Form::hidden('domain', Request::root() ) }}
+                                @foreach($diggers as $car)
+                                    <tr>
+                                        <td class="text-center">
+                                            <div class="avatar avatar-lg d-block" style="background-image: url({{$car->image}})">
+                                                @if($car->status==1)
+                                                    <span class="avatar-status bg-green"></span>
+                                                @else
+                                                    <span class="avatar-status bg-red-dark"></span>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-uppercase">{{$car->plate}}</div>
+                                            <div class="small text-muted">
+                                                Registered: {{$car->year_of_manufacture}} {{strtoupper($car->main_colour)}}
+                                            </div>
+                                        </td>
+
+                                        <td class="text-center">
+                                            @component('components.service_digger',['car'=>$car])
+                                                N/A
+                                            @endcomponent
+                                        </td>
+
+                                        <td class="text-center">
+                                            <div class="item-action dropdown">
+                                                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="{{route('car_edit',['id'=>$car->id])}}" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit </a>
+                                                    <a href="{{route('car_delete',['id'=>$car->id])}}" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete?')"><i class="dropdown-icon fe fe-delete"></i> Delete</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a href="javascript:void(0)" onclick="showlink(this, '{{route('sharing_url',['mark'=>$car->sharing_mark])}}')" id="{{$car->sharing_mark}}" data-plate="{{$car->plate}}" class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
+{{--                                                    <a href="javascript:void(0)" onclick="showHistory('{{route('car_history',['id'=>$car->id])}}')" class="dropdown-item" data-toggle="modal" data-target="#history"><i class="dropdown-icon fe fe-link"></i> History</a>--}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
 
     </div>
+
+
 </div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
