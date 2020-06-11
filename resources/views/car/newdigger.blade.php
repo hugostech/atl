@@ -57,16 +57,21 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="form-group">
                             <label class="form-label">Current Hours <span class="form-required">*</span></label>
+                            <div class="input-group">
                             {!! Form::number('hours',null,['class'=>'form-control','placeholder'=>'Hours','required']) !!}
+                            <span class="input-group-append">
+                                <span class="input-group-text">Hours</span>
+                            </span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Last Service Date</label>
                             {!! Form::date('last_service_date',null,['class'=>"form-control"]) !!}
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Next Service</label>
+                            <label class="form-label">Next Service Hours</label>
                             <div class="input-group">
-                                {!! Form::number('service_hours',null,['class'=>"form-control"]) !!}
+                                {!! Form::number('service_hours',150,['class'=>"form-control"]) !!}
                                 <span class="input-group-append">
                                     <span class="input-group-text">Hours</span>
                                 </span>

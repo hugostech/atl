@@ -12,14 +12,14 @@
         <div class="col-12">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#car" role="tab" aria-controls="home" aria-selected="true">Car</a>
+                    <a class="nav-link {{\Illuminate\Support\Facades\Input::get('type', 'car')=='car'?'active':''}}" id="home-tab" data-toggle="tab" href="#car" role="tab" aria-controls="home" aria-selected="{{\Illuminate\Support\Facades\Input::get('type', 'car')=='car'?'true':'false'}}">Car</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#digger" role="tab" aria-controls="profile" aria-selected="false">Digger</a>
+                    <a class="nav-link {{\Illuminate\Support\Facades\Input::get('type', 'car')=='digger'?'active':''}}" id="profile-tab" data-toggle="tab" href="#digger" role="tab" aria-controls="profile" aria-selected="{{\Illuminate\Support\Facades\Input::get('type', 'car')=='digger'?'true':'false'}}">Digger</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="car" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade {{\Illuminate\Support\Facades\Input::get('type', 'car')=='car'?'show active':''}}" id="car" role="tabpanel" aria-labelledby="home-tab">
                     <div class="card">
                         <div class="table-responsive">
                             <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="digger" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade {{\Illuminate\Support\Facades\Input::get('type', 'car')=='digger'?'show active':''}}" id="digger" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="card">
                         <div class="table-responsive">
                             <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
@@ -140,10 +140,13 @@
                                                 <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a href="{{route('car_edit',['id'=>$car->id])}}" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit </a>
+                                                    <a href="javascript:void(0)" class="dropdown-item" onclick="doService({{$car->hours}}, {{$car->service_hours}}, {{$car->id}})"
+                                                       data-toggle="modal" data-target="#serviceModal"><i class="dropdown-icon fa fa-wrench"></i> Do Service </a>
                                                     <a href="{{route('car_delete',['id'=>$car->id])}}" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete?')"><i class="dropdown-icon fe fe-delete"></i> Delete</a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a href="javascript:void(0)" onclick="showlink(this, '{{route('sharing_url',['mark'=>$car->sharing_mark])}}')" id="{{$car->sharing_mark}}" data-plate="{{$car->plate}}" class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
-{{--                                                    <a href="javascript:void(0)" onclick="showHistory('{{route('car_history',['id'=>$car->id])}}')" class="dropdown-item" data-toggle="modal" data-target="#history"><i class="dropdown-icon fe fe-link"></i> History</a>--}}
+                                                    <a href="javascript:void(0)" onclick="showlink(this, '{{route('sharing_url',['mark'=>$car->sharing_mark])}}')"
+                                                       id="{{$car->sharing_mark}}" data-plate="{{$car->plate}}" class="dropdown-item"
+                                                       data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -189,6 +192,31 @@
     </div>
 </div>
 
+<div class="modal fade" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="doService" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Do Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                </button>
+            </div>
+            <div class="modal-body">
+                <label class="form-label" id="url_label">Loading...</label>
+            </div>
+
+            <div class="text-center" id="qr_code">
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="history" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -227,6 +255,8 @@
         </div>
     </div>
 </div>
+
+
 
 <script>
     function showHistory(url) {
@@ -293,6 +323,9 @@
 
         a[0].click();
         a.remove();
+    }
+    function doService(currentHour, nextHour, carId){
+
     }
 </script>
 @endsection
