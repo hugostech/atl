@@ -104,4 +104,16 @@ class Car extends Model
     {
 
     }
+
+    public function scopeTypeCar($query){
+        return $query->where('vehicle_type', 'Vehicle');
+    }
+
+    public function scopeTypeDigger($query){
+        return $query->where('vehicle_type', 'Digger Vehicle');
+    }
+
+    public function isDigger(){
+        return $this->vehicle_type == 'Digger Vehicle';
+    }
 }
