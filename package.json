@@ -14,6 +14,6 @@
         "babel-preset-react": "^6.24.1",
         "cross-env": "^5.1",
         "laravel-mix": "^2.0",
-        "lodash": "^4.17.5"
+        "lodash": "^4.17.19"
     }
 }
