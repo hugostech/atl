@@ -109,7 +109,12 @@ class CarController extends Controller
     public function editCarByPlate($plate){
         $car = Car::withoutGlobalScope('status')->where('plate',$plate)->first();
         $history = $this->history($car->id);
-        return view('car.edit',compact('car', 'history'));
+        if ($car->isDigger()){
+            $template = 'car.editdigger';
+        }else{
+            $template = 'car.edit';
+        }
+        return view($template,compact('car', 'history'));
     }
 
     public function updateCar($id,Request $request){
@@ -148,7 +153,7 @@ class CarController extends Controller
 
     public function doService()
     {
-        
+
     }
 
 }
