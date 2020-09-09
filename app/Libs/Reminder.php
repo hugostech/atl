@@ -60,6 +60,7 @@ class Reminder
     {
         $cars = [];
         foreach ($this->cars as $car) {
+            if ($car->isDigger()) continue;
             try {
                 $ruc = $car->needRuc();
                 if ($ruc !== false) {
@@ -79,6 +80,7 @@ class Reminder
     {
         $cars = [];
         foreach ($this->cars as $car) {
+            if ($car->isDigger()) continue;
             $days = $car->needCof();
             if ($days < 30) {
                 $cars[$car->plate] = $days;
@@ -91,6 +93,7 @@ class Reminder
     {
         $cars = [];
         foreach ($this->cars as $car) {
+            if ($car->isDigger()) continue;
             $days = $car->needReg();
             if ($days < 30) {
                 $cars[$car->plate] = $days;
