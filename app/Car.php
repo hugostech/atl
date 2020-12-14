@@ -116,4 +116,25 @@ class Car extends Model
     public function isDigger(){
         return $this->vehicle_type == 'Digger Vehicle';
     }
+
+    public function getTemplate($isEdit=false){
+        $template = 'car.';
+        switch ($this->vehicle_type){
+            case 'Vehicle':
+                $template .= $isEdit?'edit':'new';
+                break;
+            case 'Digger Vehicle':
+                $template .= $isEdit?'editdigger':'newdigger';
+                break;
+            case 'Roller':
+                $template .= $isEdit?'editroller':'newroller';
+                break;
+            case 'Compactor':
+                $template .= $isEdit?'editcompactor':'newcompactor';
+                break;
+        }
+        return $template;
+
+
+    }
 }
