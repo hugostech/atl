@@ -6,16 +6,16 @@
         <div class="col-12">
             {!! Form::open(['route'=>'car_create','method'=>'post','class'=>'card','onsubmit'=>"return confirm('Are you sure?')"]) !!}
             {!! Form::hidden('last_editor',\Illuminate\Support\Facades\Auth::user()->id) !!}
-            {{ Form::hidden('vehicle_type', 'Digger Vehicle') }}
+            {{ Form::hidden('vehicle_type', 'Compactor') }}
             <div class="card-header">
-                <h3 class="card-title">Create Vehicle - Digger</h3>
+                <h3 class="card-title">Create Vehicle - Compactor</h3>
             </div>
             <div class="card-body">
                 <div class="btn-group">
                     <a href="{{ url('car/new') }}" class="btn btn-blue">Car</a>
-                    <a href="{{ url('car/new_digger') }}" class="btn btn-dark" >Digger</a>
+                    <a href="{{ url('car/new_digger') }}" class="btn btn-blue" >Digger</a>
                     <a href="{{ url('car/new_roller') }}" class="btn btn-blue" >Roller</a>
-                    <a href="{{ url('car/new_compactor') }}" class="btn btn-blue" >Compactor</a>
+                    <a href="{{ url('car/new_compactor') }}" class="btn btn-dark" >Compactor</a>
                 </div>
 
                 @component('components.error')
@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label class="form-label">Plate or Digger Number <span class="form-required">*</span></label>
+                            <label class="form-label">Plate or Compactor Number <span class="form-required">*</span></label>
                             <div class="input-group">
                                 {!! Form::text('plate',null,['class'=>'form-control','placeholder'=>'Plate','required']) !!}
                                 <span class="input-group-append">
@@ -56,32 +56,7 @@
                         </div>
 
                     </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <label class="form-label">Current Hours <span class="form-required">*</span></label>
-                            <div class="input-group">
-                            {!! Form::number('hours',null,['class'=>'form-control','placeholder'=>'Hours','required']) !!}
-                            <span class="input-group-append">
-                                <span class="input-group-text">Hours</span>
-                            </span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Last Service Date</label>
-                            {!! Form::date('last_service_date',null,['class'=>"form-control"]) !!}
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Next Service Hours</label>
-                            <div class="input-group">
-                                {!! Form::number('service_hours',150,['class'=>"form-control"]) !!}
-                                <span class="input-group-append">
-                                    <span class="input-group-text">Hours</span>
-                                </span>
-                            </div>
 
-                        </div>
-
-                    </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="form-group">
                             <label class="form-label">Company <span class="form-required">*</span></label>

@@ -48,6 +48,8 @@ Route::prefix('car')->middleware(['web','auth'])->group(function (){
     Route::post('batch_save','CarController@saveBatch')->name('batch_save');
 
     Route::get('new_digger','CarController@newDigger')->name('car_new_digger');
+    Route::get('new_roller','CarController@newRoller')->name('car_new_roller');
+    Route::get('new_compactor','CarController@newCompactor')->name('car_new_compactor');
     Route::get('/{id}/edit','CarController@editCar')->name('car_edit');
     Route::get('/{plate}/platedit','CarController@editCarByPlate')->name('car_edit_by_plate');
     Route::get('/{id}/detail','CarController@showCar')->name('car_detail');

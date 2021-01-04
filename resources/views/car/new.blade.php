@@ -12,13 +12,16 @@
             </div>
             <div class="card-body">
                 <div class="btn-group">
-                    <a href="{{ url('car/new') }}" class="vehicle">{{Html::image(asset('dist/assets/images/car.png'))}}</a>
-                    <a href="{{ url('car/new_digger') }}" class="vehicle" >{{Html::image(asset('dist/assets/images/digger.png'))}}</a>                    
+                    <a href="{{ url('car/new') }}" class="btn btn-dark">Car</a>
+                    <a href="{{ url('car/new_digger') }}" class="btn btn-blue" >Digger</a>
+                    <a href="{{ url('car/new_roller') }}" class="btn btn-blue" >Roller</a>
+                    <a href="{{ url('car/new_compactor') }}" class="btn btn-blue" >Compactor</a>
                 </div>
+
 
                 @component('components.error')
                 @endcomponent
-                <div class="row">                    
+                <div class="row">
                     <div class="col-md-6 col-lg-4">
                         <div class="form-group">
                             <label class="form-label">Plate <span class="form-required">*</span></label>
@@ -34,7 +37,7 @@
                             <label class="form-label">No of Seats <span class="form-required">*</span></label>
                             {!! Form::number('no_of_seats',null,['class'=>'form-control','placeholder'=>'Seats','required']) !!}
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label">Tyre Info <span class="form-required">*</span></label>
                             {!! Form::text('tyreinfo',null,['class'=>'form-control','placeholder'=>'eg: 255/70R22.5','required']) !!}
@@ -59,7 +62,7 @@
                                 </span>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             {!! Form::submit('Save',['class'=>'btn btn-primary']) !!}
                         </div>
@@ -114,7 +117,7 @@
                                     ['class'=>'form-control', 'required']
                                 ) !!}
                             @endif
-                            
+
                         </div>
                         <div class="form-group">
                             <label class="form-label">Make</label>

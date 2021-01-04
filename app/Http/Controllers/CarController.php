@@ -84,6 +84,14 @@ class CarController extends Controller
         return view('car.newdigger');
     }
 
+    public function newRoller(){
+        return view('car.newroller');
+    }
+
+    public function newCompactor(){
+        return view('car.newcompactor');
+    }
+
     public function saveCar(Request $request){
         $this->validate($request, [
             'plate'=>'required|unique:cars'
