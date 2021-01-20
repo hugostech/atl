@@ -17,6 +17,16 @@
                 <li class="nav-item">
                     <a class="nav-link {{\Illuminate\Support\Facades\Input::get('type', 'car')=='digger'?'active':''}}" id="profile-tab" data-toggle="tab" href="#digger" role="tab" aria-controls="profile" aria-selected="{{\Illuminate\Support\Facades\Input::get('type', 'car')=='digger'?'true':'false'}}">Digger</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{\Illuminate\Support\Facades\Input::get('type', 'car')=='roller'?'active':''}}"
+                       id="profile-tab" data-toggle="tab" href="#roller" role="tab" aria-controls="profile"
+                       aria-selected="{{\Illuminate\Support\Facades\Input::get('type', 'car')=='roller'?'true':'false'}}">Roller</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{\Illuminate\Support\Facades\Input::get('type', 'car')=='compactor'?'active':''}}"
+                       id="profile-tab" data-toggle="tab" href="#compactor" role="tab" aria-controls="profile"
+                       aria-selected="{{\Illuminate\Support\Facades\Input::get('type', 'car')=='compactor'?'true':'false'}}">Compactor</a>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade {{\Illuminate\Support\Facades\Input::get('type', 'car')=='car'?'show active':''}}" id="car" role="tabpanel" aria-labelledby="home-tab">
@@ -40,7 +50,7 @@
                                 @foreach($cars as $car)
                                     <tr>
                                         <td class="text-center">
-                                            <div class="avatar avatar-lg d-block" style="background-image: url({{$car->image}})">
+                                            <div class="avatar avatar-xxl d-block " style="background-image: url({{$car->image}}); border-radius:0">
                                                 @if($car->status==1)
                                                     <span class="avatar-status bg-green"></span>
                                                 @else
@@ -114,7 +124,7 @@
                                 @foreach($diggers as $car)
                                     <tr>
                                         <td class="text-center">
-                                            <div class="avatar avatar-lg d-block" style="background-image: url({{$car->image}})">
+                                            <div class="avatar avatar-xxl d-block" style="background-image: url({{$car->image}}); border-radius:0">
                                                 @if($car->status==1)
                                                     <span class="avatar-status bg-green"></span>
                                                 @else
@@ -157,6 +167,127 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane fade {{\Illuminate\Support\Facades\Input::get('type', 'car')=='roller'?'show active':''}}" id="roller" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+                                <thead>
+                                <tr>
+                                    <th class="text-center w-1"><i class="icon-people"></i></th>
+                                    <th>Roller Number</th>
+                                    <th class="text-center">Service</th>
+                                    <th class="text-center"><i class="icon-settings"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{ Form::hidden('domain', Request::root() ) }}
+                                @foreach($diggers as $car)
+                                    <tr>
+                                        <td class="text-center">
+                                            <div class="avatar avatar-xxl d-block" style="background-image: url({{$car->image}});border-radius:0">
+                                                @if($car->status==1)
+                                                    <span class="avatar-status bg-green"></span>
+                                                @else
+                                                    <span class="avatar-status bg-red-dark"></span>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-uppercase">{{$car->plate}}</div>
+                                            <div class="small text-muted">
+                                                Registered: {{$car->year_of_manufacture}} {{strtoupper($car->main_colour)}}
+                                            </div>
+                                        </td>
+
+                                        <td class="text-center">
+                                            @component('components.service_digger',['car'=>$car])
+                                                N/A
+                                            @endcomponent
+                                        </td>
+
+                                        <td class="text-center">
+                                            <div class="item-action dropdown">
+                                                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="{{route('car_edit',['id'=>$car->id])}}" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit </a>
+                                                    <a href="javascript:void(0)" class="dropdown-item" onclick="doService({{$car->hours}}, {{$car->service_hours}}, {{$car->id}})"
+                                                       data-toggle="modal" data-target="#serviceModal"><i class="dropdown-icon fa fa-wrench"></i> Do Service </a>
+                                                    <a href="{{route('car_delete',['id'=>$car->id])}}" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete?')"><i class="dropdown-icon fe fe-delete"></i> Delete</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a href="javascript:void(0)" onclick="showlink(this, '{{route('sharing_url',['mark'=>$car->sharing_mark])}}')"
+                                                       id="{{$car->sharing_mark}}" data-plate="{{$car->plate}}" class="dropdown-item"
+                                                       data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade {{\Illuminate\Support\Facades\Input::get('type', 'car')=='compactor'?'show active':''}}" id="compactor" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+                                <thead>
+                                <tr>
+                                    <th class="text-center w-1"><i class="icon-people"></i></th>
+                                    <th>Compactor Number</th>
+                                    <th class="text-center">Service</th>
+                                    <th class="text-center"><i class="icon-settings"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{ Form::hidden('domain', Request::root() ) }}
+                                @foreach($diggers as $car)
+                                    <tr>
+                                        <td class="text-center">
+                                            <div class="avatar avatar-xxl d-block" style="background-image: url({{$car->image}});border-radius:0">
+                                                @if($car->status==1)
+                                                    <span class="avatar-status bg-green"></span>
+                                                @else
+                                                    <span class="avatar-status bg-red-dark"></span>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-uppercase">{{$car->plate}}</div>
+                                            <div class="small text-muted">
+                                                Registered: {{$car->year_of_manufacture}} {{strtoupper($car->main_colour)}}
+                                            </div>
+                                        </td>
+
+                                        <td class="text-center">
+                                            @component('components.service_digger',['car'=>$car])
+                                                N/A
+                                            @endcomponent
+                                        </td>
+
+                                        <td class="text-center">
+                                            <div class="item-action dropdown">
+                                                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="{{route('car_edit',['id'=>$car->id])}}" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit </a>
+                                                    <a href="javascript:void(0)" class="dropdown-item" onclick="doService({{$car->hours}}, {{$car->service_hours}}, {{$car->id}})"
+                                                       data-toggle="modal" data-target="#serviceModal"><i class="dropdown-icon fa fa-wrench"></i> Do Service </a>
+                                                    <a href="{{route('car_delete',['id'=>$car->id])}}" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete?')"><i class="dropdown-icon fe fe-delete"></i> Delete</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a href="javascript:void(0)" onclick="showlink(this, '{{route('sharing_url',['mark'=>$car->sharing_mark])}}')"
+                                                       id="{{$car->sharing_mark}}" data-plate="{{$car->plate}}" class="dropdown-item"
+                                                       data-toggle="modal" data-target="#exampleModal"><i class="dropdown-icon fe fe-link"></i> Update Odometer link</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>

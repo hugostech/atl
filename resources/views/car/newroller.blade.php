@@ -36,7 +36,7 @@
 
 
 
-                        {!! Form::number('hours',0,['class'=>'form-control','placeholder'=>'Hours','required']) !!}
+                        {!! Form::hidden('hours',0,['class'=>'form-control','placeholder'=>'Hours','required']) !!}
                         <div class="form-group">
                             <label class="form-label">Serial no</label>
                             {!! Form::text('engine_no',null,['class'=>'form-control']) !!}
